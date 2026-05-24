@@ -7,7 +7,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 <script>
   tailwind.config = {
     theme: {
@@ -15,824 +15,966 @@
         fontFamily: {
           sans: ['Inter', 'ui-sans-serif', 'system-ui'],
           mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
-        },
-        colors: {
-          ink:    '#0b1220',
-          paper:  '#fafaf9',
-          accent: '#0ea5e9',
-          muted:  '#475569',
+          serif: ['Instrument Serif', 'ui-serif', 'Georgia'],
         },
       },
     },
   };
 </script>
 <style>
-  html { scroll-behavior: smooth; }
-  body { font-feature-settings: "ss01","cv11"; }
+  :root {
+    --ink: #0a0a0a;
+    --ink-2: #1c1c1c;
+    --sub: #525252;
+    --muted: #a3a3a3;
+    --line: #e5e5e5;
+    --line-2: #f5f5f5;
+    --paper: #fafaf9;
+    --page: #ffffff;
+    --accent: #d97706;       /* amber-600 */
+    --accent-soft: #fffbeb;  /* amber-50  */
+    --ok: #16a34a;
+  }
 
-  /* Language switcher — show/hide based on <html lang> */
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: "ss01","cv11","cv02","cv03","cv04";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Language switcher visibility */
   html[lang="mn"] .lang-en { display: none !important; }
   html[lang="en"] .lang-mn { display: none !important; }
 
-  /* Subtle dotted background */
-  .bg-dots {
-    background-image: radial-gradient(rgba(15,23,42,0.07) 1px, transparent 1px);
-    background-size: 14px 14px;
+  /* === Grid background — screen only === */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(10,10,10,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(10,10,10,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
 
-  /* Print rules — A4, no shadows, no colors bleeding off page */
-  @media print {
-    @page { size: A4; margin: 12mm; }
-    html, body { background: #fff !important; }
-    .no-print { display: none !important; }
-    .print-shadow-none { box-shadow: none !important; }
-    .print-border-none { border: none !important; }
-    .page { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; }
-    a { color: inherit !important; text-decoration: none !important; }
+  /* === Headline display tweaks === */
+  .display {
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+  }
+  .display em {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.02em;
   }
 
-  .section-title {
+  /* === Section header style === */
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
-    letter-spacing: 0.18em;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    font-weight: 700;
-    color: #0ea5e9;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
   }
 
-  .timeline::before {
-    content: "";
-    position: absolute;
-    left: 5px;
-    top: 8px;
-    bottom: 8px;
-    width: 2px;
-    background: linear-gradient(to bottom, #0ea5e9 0%, #e2e8f0 100%);
-    border-radius: 2px;
-  }
-  .dot {
-    position: absolute;
-    left: -1px;
-    top: 8px;
-    width: 14px;
-    height: 14px;
-    border-radius: 9999px;
-    background: #fff;
-    border: 3px solid #0ea5e9;
-    box-shadow: 0 0 0 3px #fff;
-  }
-
-  .chip {
+  /* === Status pill === */
+  .status-pill {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    border: 1px solid rgba(15,23,42,0.10);
-    background: #fff;
-    color: #0b1220;
-    padding: 0.30rem 0.65rem;
+    gap: 0.45rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sub);
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--line);
     border-radius: 9999px;
+    background: var(--page);
+  }
+  .status-dot {
+    width: 7px; height: 7px;
+    border-radius: 9999px;
+    background: var(--ok);
+    box-shadow: 0 0 0 3px rgba(22,163,74,0.18);
+  }
+  @keyframes pulse-soft {
+    0%,100% { opacity: 1; }
+    50%     { opacity: 0.4; }
+  }
+  .status-dot.pulse { animation: pulse-soft 2.2s ease-in-out infinite; }
+
+  /* === Meta link strip === */
+  .meta-link {
+    color: var(--sub);
+    transition: color .15s;
+  }
+  .meta-link:hover { color: var(--accent); }
+
+  /* === Chips (skill tags) === */
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink);
+    padding: 0.18rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--page);
+    line-height: 1.5;
+  }
+  .tag-ghost {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--sub);
+    padding: 0.12rem 0.45rem;
+    background: var(--line-2);
+    border-radius: 4px;
+  }
+
+  /* === Experience / education row === */
+  .entry {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .entry:first-child { border-top: 0; padding-top: 0; }
+  .entry-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--sub);
+    line-height: 1.6;
+  }
+  @media (max-width: 700px) {
+    .entry { grid-template-columns: 1fr; gap: 0.5rem; }
+  }
+
+  /* === Project block === */
+  .project {
+    padding: 1.4rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .project:first-child { border-top: 0; padding-top: 0; }
+  .project-name {
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.78rem;
-    font-weight: 500;
-    line-height: 1;
-  }
-  .chip .dotcolor { width: 6px; height: 6px; border-radius: 9999px; background: #0ea5e9; }
-
-  .stat {
-    border: 1px solid rgba(15,23,42,0.08);
-    border-radius: 14px;
-    padding: 0.85rem 1rem;
-    background: #fff;
+    color: var(--accent);
+    letter-spacing: 0.02em;
   }
 
-  /* Language toggle button */
+  /* === Dot leaders for project list (terminal feel) === */
+  .leader {
+    flex: 1;
+    border-bottom: 1px dotted var(--line);
+    margin: 0 .5rem;
+    transform: translateY(-3px);
+  }
+
+  /* === Lang toggle === */
   .lang-switch {
     display: inline-flex;
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--line);
     border-radius: 9999px;
     padding: 2px;
-    background: #fff;
+    background: var(--page);
   }
   .lang-switch button {
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
     padding: 0.3rem 0.7rem;
     border-radius: 9999px;
-    color: #475569;
+    color: var(--sub);
     transition: all 0.15s;
     line-height: 1;
   }
   .lang-switch button.active {
-    background: #0b1220;
+    background: var(--ink);
     color: #fff;
+  }
+
+  /* === Toolbar button === */
+  .tool-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.45rem 0.85rem;
+    border-radius: 9999px;
+    border: 1px solid var(--line);
+    background: var(--page);
+    color: var(--ink);
+    transition: all .15s;
+  }
+  .tool-btn:hover { border-color: var(--ink); }
+  .tool-btn.primary {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+  .tool-btn.primary:hover { background: var(--accent); border-color: var(--accent); }
+
+  /* === Footer === */
+  .footer-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  /* ===========================================
+     PRINT / PDF — A4, polished, no-break sections
+     =========================================== */
+  @media print {
+    @page { size: A4; margin: 14mm 14mm 12mm; }
+    html, body {
+      background: #fff !important;
+      color: #000 !important;
+      font-size: 10.5pt;
+    }
+    .no-print { display: none !important; }
+    .bg-grid { background-image: none !important; }
+    main { padding: 0 !important; max-width: 100% !important; }
+    .page {
+      box-shadow: none !important;
+      border: 0 !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+    }
+    .status-dot { box-shadow: none !important; }
+    a { color: inherit !important; text-decoration: none !important; }
+
+    /* avoid breaking entries / projects mid-page */
+    .entry, .project, .award, h2, h3 { break-inside: avoid; page-break-inside: avoid; }
+    section, .section-block { break-inside: auto; }
+    h2 { break-after: avoid; }
+
+    /* slightly tighter spacing for density */
+    .section-block { padding-top: 16pt !important; padding-bottom: 0 !important; }
+    .display { font-size: 30pt !important; }
   }
 </style>
 </head>
-<body class="bg-paper text-ink font-sans">
+<body>
 
-  <!-- Toolbar (screen only) -->
-  <div class="no-print sticky top-0 z-20 bg-paper/80 backdrop-blur border-b border-slate-200">
-    <div class="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between gap-3 flex-wrap">
-      <div class="flex items-center gap-2">
-        <div class="h-7 w-7 rounded-md bg-ink text-paper grid place-items-center font-bold">ӨБ</div>
-        <span class="text-sm text-muted">
-          <span class="lang-mn">Өсөхбаяр Батмөнх · CV</span>
-          <span class="lang-en">Usukhbayar Batmunkh · CV</span>
+  <!-- ───────── Sticky toolbar (screen only) ───────── -->
+  <div class="no-print sticky top-0 z-30 bg-paper/80 backdrop-blur border-b border-neutral-200">
+    <div class="max-w-4xl mx-auto px-6 py-3 flex items-center justify-between gap-3 flex-wrap">
+      <div class="flex items-center gap-3">
+        <div class="h-7 w-7 rounded-full bg-[var(--ink)] text-white grid place-items-center font-bold text-xs">ӨБ</div>
+        <span class="font-mono text-xs text-neutral-500">
+          <span class="lang-mn">cv.osohoo.dev</span>
+          <span class="lang-en">cv.osohoo.dev</span>
         </span>
       </div>
       <div class="flex items-center gap-2 flex-wrap">
-        <!-- Language switch -->
         <div class="lang-switch" role="group" aria-label="Language switcher">
           <button type="button" id="btn-mn" class="active" onclick="setLang('mn')">МН</button>
           <button type="button" id="btn-en" onclick="setLang('en')">EN</button>
         </div>
-        <a href="mailto:osohoo586@gmail.com"
-           class="text-sm px-3 py-1.5 rounded-md border border-slate-300 hover:bg-white">
-          <span class="lang-mn">✉ Холбоо барих</span>
-          <span class="lang-en">✉ Contact</span>
+        <a href="mailto:osohoo586@gmail.com" class="tool-btn">
+          <span class="lang-mn">Холбоо ↗</span>
+          <span class="lang-en">Contact ↗</span>
         </a>
-        <button onclick="window.print()"
-                class="text-sm px-3 py-1.5 rounded-md bg-ink text-paper hover:opacity-90">
-          <span class="lang-mn">⤓ PDF татах</span>
-          <span class="lang-en">⤓ Download PDF</span>
+        <button onclick="window.print()" class="tool-btn primary">
+          <span class="lang-mn">PDF татах ⤓</span>
+          <span class="lang-en">Download PDF ⤓</span>
         </button>
       </div>
     </div>
   </div>
 
-  <main class="max-w-5xl mx-auto px-6 py-10">
+  <main class="max-w-4xl mx-auto px-6 py-12 md:py-16">
 
-    <article class="page bg-white rounded-2xl shadow-[0_30px_60px_-30px_rgba(2,6,23,0.25)] overflow-hidden">
+    <article class="page bg-[var(--page)] border border-neutral-200/80 rounded-2xl overflow-hidden">
 
-      <!-- Header -->
-      <header class="relative bg-ink text-paper px-10 py-12 bg-dots">
-        <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-end">
-          <div>
-            <p class="text-xs tracking-[0.3em] text-sky-400 font-semibold mb-3">CURRICULUM VITAE · 2026</p>
-            <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
-              <span class="lang-mn">Өсөхбаяр <span class="text-sky-400">Батмөнх</span></span>
-              <span class="lang-en">Usukhbayar <span class="text-sky-400">Batmunkh</span></span>
-            </h1>
-            <p class="mt-3 text-lg md:text-xl text-slate-300 font-medium">
-              Computer Scientist · Machine Learning Engineer
-            </p>
-            <p class="mt-4 max-w-2xl text-slate-300/90 leading-relaxed lang-mn">
-              МУИС-ийг компьютерийн ухаан мэргэжлээр төгссөн, машин сургалт болон
-              гүн сургалтын чиглэлд онол ба практикийн туршлагатай хөгжүүлэгч.
-              Production-ready RAG чатбот, hybrid NLP pipeline, банкны картын систем
-              хөгжүүлэлтийн бодит туршлагатай.
-            </p>
-            <p class="mt-4 max-w-2xl text-slate-300/90 leading-relaxed lang-en">
-              Computer Science graduate of the National University of Mongolia with
-              hands-on experience in machine learning and deep learning. Shipped
-              production-ready RAG chatbots, hybrid NLP pipelines, and contributed
-              to banking card-system development.
-            </p>
-          </div>
+      <!-- ───────── HERO ───────── -->
+      <header class="relative px-8 md:px-14 pt-12 md:pt-16 pb-10 md:pb-14 bg-grid">
 
-          <div class="shrink-0 flex flex-col items-start md:items-end gap-1.5 text-sm">
-            <a href="mailto:osohoo586@gmail.com" class="hover:text-sky-400">✉ osohoo586@gmail.com</a>
-            <a href="tel:+97680037577" class="hover:text-sky-400">☎ +976 8003 7577</a>
-            <span class="text-slate-300">
-              <span class="lang-mn">⚲ Улаанбаатар, БЗД, Монгол</span>
-              <span class="lang-en">⚲ Ulaanbaatar, Mongolia</span>
-            </span>
-            <a href="https://github.com/osohoo586" target="_blank" rel="noopener"
-               class="text-slate-400 text-xs mt-1 font-mono hover:text-sky-400">
-              github.com/osohoo586
-            </a>
-          </div>
+        <!-- top meta -->
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <span class="status-pill">
+            <span class="status-dot pulse"></span>
+            <span class="lang-mn">2026.06-аас ажилд бэлэн</span>
+            <span class="lang-en">Available from Jun 2026</span>
+          </span>
+          <span class="font-mono text-[0.7rem] tracking-[0.15em] text-neutral-400 uppercase">
+            Curriculum Vitae · 2026
+          </span>
         </div>
 
-        <!-- Quick stats -->
-        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div class="stat text-ink">
-            <div class="text-2xl font-bold">4</div>
-            <div class="text-xs text-muted mt-0.5">
-              <span class="lang-mn">production төсөл хүргэсэн</span>
-              <span class="lang-en">production projects shipped</span>
+        <!-- big name -->
+        <h1 class="display text-[2.6rem] sm:text-[3.4rem] md:text-[4.2rem] mt-8">
+          <span class="lang-mn">
+            Өсөхбаяр<br/>
+            <span class="text-[var(--accent)]">Батмөнх</span><em class="text-neutral-400">.</em>
+          </span>
+          <span class="lang-en">
+            Usukhbayar<br/>
+            <span class="text-[var(--accent)]">Batmunkh</span><em class="text-neutral-400">.</em>
+          </span>
+        </h1>
+
+        <!-- role + tagline -->
+        <div class="mt-6 max-w-2xl">
+          <p class="font-mono text-xs tracking-widest uppercase text-neutral-500">
+            <span class="lang-mn">// Компьютерийн ухаан · Машин сургалт</span>
+            <span class="lang-en">// Computer Science · Machine Learning</span>
+          </p>
+          <p class="mt-4 text-lg md:text-xl leading-snug text-neutral-700 font-normal lang-mn">
+            Production-ready <em class="font-serif italic text-[var(--ink)]">RAG системм</em>,
+            hybrid NLP pipeline, болон <em class="font-serif italic text-[var(--ink)]">deep learning</em>
+            загваруудыг архитектураас deploy хүртэл бие даан хүргэдэг хөгжүүлэгч.
+          </p>
+          <p class="mt-4 text-lg md:text-xl leading-snug text-neutral-700 font-normal lang-en">
+            Builds production-ready <em class="font-serif italic text-[var(--ink)]">RAG systems</em>,
+            hybrid NLP pipelines, and <em class="font-serif italic text-[var(--ink)]">deep learning</em>
+            models end-to-end — from architecture to deployment.
+          </p>
+        </div>
+
+        <!-- meta strip -->
+        <div class="mt-10 pt-6 border-t border-neutral-200 flex flex-wrap gap-x-6 gap-y-2 text-sm font-mono">
+          <a href="mailto:osohoo586@gmail.com" class="meta-link">→ osohoo586@gmail.com</a>
+          <a href="tel:+97680037577"            class="meta-link">→ +976 8003 7577</a>
+          <a href="https://github.com/osohoo586" target="_blank" rel="noopener" class="meta-link">→ github.com/osohoo586</a>
+          <span class="text-neutral-500">
+            <span class="lang-mn">⚲ Улаанбаатар, Монгол</span>
+            <span class="lang-en">⚲ Ulaanbaatar, Mongolia</span>
+          </span>
+        </div>
+
+        <!-- key signal row -->
+        <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-4">
+          <div>
+            <div class="font-mono text-2xl font-semibold">04</div>
+            <div class="text-[11px] font-mono text-neutral-500 uppercase tracking-wider mt-0.5">
+              <span class="lang-mn">production төсөл</span>
+              <span class="lang-en">prod shipments</span>
             </div>
           </div>
-          <div class="stat text-ink">
-            <div class="text-2xl font-bold">3.1<span class="text-sky-500">/4</span></div>
-            <div class="text-xs text-muted mt-0.5">
-              <span class="lang-mn">бакалаврын голч (МУИС)</span>
-              <span class="lang-en">Bachelor's GPA (NUM)</span>
+          <div>
+            <div class="font-mono text-2xl font-semibold">3.1<span class="text-neutral-400">/4</span></div>
+            <div class="text-[11px] font-mono text-neutral-500 uppercase tracking-wider mt-0.5">
+              <span class="lang-mn">бакалаврын голч</span>
+              <span class="lang-en">Bachelor's GPA</span>
             </div>
           </div>
-          <div class="stat text-ink">
-            <div class="text-2xl font-bold">RAG<span class="text-sky-500">+LLM</span></div>
-            <div class="text-xs text-muted mt-0.5">
-              <span class="lang-mn">production чатбот</span>
-              <span class="lang-en">production chatbots</span>
+          <div>
+            <div class="font-mono text-2xl font-semibold">RAG<span class="text-neutral-400">+LLM</span></div>
+            <div class="text-[11px] font-mono text-neutral-500 uppercase tracking-wider mt-0.5">
+              <span class="lang-mn">мэргэшсэн</span>
+              <span class="lang-en">specialization</span>
             </div>
           </div>
-          <div class="stat text-ink">
-            <div class="text-2xl font-bold">3<span class="text-sky-500">+</span></div>
-            <div class="text-xs text-muted mt-0.5">
+          <div>
+            <div class="font-mono text-2xl font-semibold">3<span class="text-neutral-400">+</span></div>
+            <div class="text-[11px] font-mono text-neutral-500 uppercase tracking-wider mt-0.5">
               <span class="lang-mn">тэтгэлэгт хөтөлбөр</span>
-              <span class="lang-en">scholarship programs</span>
+              <span class="lang-en">scholarships</span>
             </div>
           </div>
         </div>
       </header>
 
-      <!-- Body -->
-      <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr]">
+      <!-- ───────── BODY ───────── -->
+      <div class="px-8 md:px-14 py-10 md:py-14 space-y-14">
 
-        <!-- Sidebar -->
-        <aside class="px-10 py-10 bg-slate-50 border-r border-slate-200/70 space-y-8">
-
-          <section>
-            <h2 class="section-title mb-3">
-              <span class="lang-mn">ХОЛБОО</span>
-              <span class="lang-en">CONTACT</span>
+        <!-- ===== 01 ABOUT ===== -->
+        <section class="section-block">
+          <div class="flex items-center gap-4 mb-6">
+            <span class="section-num">01</span>
+            <h2 class="section-title">
+              <span class="lang-mn">Танилцуулга</span>
+              <span class="lang-en">About</span>
             </h2>
-            <ul class="space-y-2 text-sm text-ink">
-              <li class="flex gap-2"><span class="text-sky-500">✉</span>
-                <a href="mailto:osohoo586@gmail.com" class="hover:text-sky-600 break-all">osohoo586@gmail.com</a>
-              </li>
-              <li class="flex gap-2"><span class="text-sky-500">☎</span>
-                <a href="tel:+97680037577" class="hover:text-sky-600">+976 8003 7577</a>
-              </li>
-              <li class="flex gap-2"><span class="text-sky-500">⚲</span>
-                <span class="lang-mn">Улаанбаатар, БЗД</span>
-                <span class="lang-en">Ulaanbaatar, Mongolia</span>
-              </li>
-            </ul>
-          </section>
+            <span class="section-rule"></span>
+          </div>
+          <p class="text-[15px] md:text-base leading-relaxed text-neutral-800 max-w-3xl lang-mn">
+            Би МУИС-ийг компьютерийн ухаан мэргэжлээр төгссөн, машин сургалт ба
+            гүн сургалтын чиглэлд гүнзгий судалгаа хийдэг хөгжүүлэгч.
+            <strong class="font-semibold text-[var(--ink)]">MID Success Factor</strong> компанид
+            7 сарын хугацаанд 4 том production төслийг бие даан хүргэж, банкны
+            картын систем хөгжүүлэлтийн туршлагатай. PyTorch ашиглан CNN загвар
+            бүтээх, RAG системм архитектурдах, hybrid NLP pipeline зохиох туршлагатай.
+            Цаашид <em class="font-serif italic">ML судлаач / ML engineer</em>
+            чиглэлээр мэргэшиж, бодит хэрэглээний асуудлуудыг шийдвэрлэхийг зорьдог.
+          </p>
+          <p class="text-[15px] md:text-base leading-relaxed text-neutral-800 max-w-3xl lang-en">
+            Computer Science graduate from the National University of Mongolia, with
+            deep interest in machine learning and deep-learning research. Over 7 months
+            at <strong class="font-semibold text-[var(--ink)]">MID Success Factor</strong>,
+            I independently shipped 4 production projects — RAG chatbots, hybrid NLP
+            pipelines, and ETL automation. Earlier banking experience as a Card Systems
+            Developer. Skilled at building CNN models with PyTorch, architecting RAG
+            systems, and engineering hybrid NLP pipelines. Aiming to specialize as an
+            <em class="font-serif italic">ML researcher / ML engineer</em>
+            tackling real-world problems.
+          </p>
+        </section>
 
-          <section>
-            <h2 class="section-title mb-3">
-              <span class="lang-mn">ХЭЛ</span>
-              <span class="lang-en">LANGUAGES</span>
+        <!-- ===== 02 EXPERIENCE ===== -->
+        <section class="section-block">
+          <div class="flex items-center gap-4 mb-6">
+            <span class="section-num">02</span>
+            <h2 class="section-title">
+              <span class="lang-mn">Ажлын туршлага</span>
+              <span class="lang-en">Experience</span>
             </h2>
-            <div class="space-y-2.5">
-              <div>
-                <div class="flex justify-between text-sm font-medium">
-                  <span>
-                    <span class="lang-mn">Монгол</span>
-                    <span class="lang-en">Mongolian</span>
-                  </span>
-                  <span class="text-muted">
-                    <span class="lang-mn">Эх хэл</span>
-                    <span class="lang-en">Native</span>
-                  </span>
-                </div>
-                <div class="h-1.5 bg-slate-200 rounded-full mt-1.5 overflow-hidden">
-                  <div class="h-full bg-ink rounded-full" style="width:100%"></div>
-                </div>
+            <span class="section-rule"></span>
+          </div>
+
+          <!-- Entry: MID Success Factor -->
+          <div class="entry">
+            <div class="entry-meta">
+              NOV 2025<br/>—&nbsp;JUN 2026
+              <div class="mt-3">
+                <span class="status-pill"><span class="status-dot"></span>
+                  <span class="lang-mn">одоогийн</span>
+                  <span class="lang-en">current</span>
+                </span>
               </div>
-              <div>
-                <div class="flex justify-between text-sm font-medium">
-                  <span>
-                    <span class="lang-mn">Англи</span>
-                    <span class="lang-en">English</span>
-                  </span>
-                  <span class="text-muted">Intermediate</span>
-                </div>
-                <div class="h-1.5 bg-slate-200 rounded-full mt-1.5 overflow-hidden">
-                  <div class="h-full bg-sky-500 rounded-full" style="width:70%"></div>
-                </div>
-              </div>
             </div>
-          </section>
-
-          <section>
-            <h2 class="section-title mb-3">
-              <span class="lang-mn">УР ЧАДВАР · ML / AI</span>
-              <span class="lang-en">SKILLS · ML / AI</span>
-            </h2>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="chip"><span class="dotcolor"></span>Python</span>
-              <span class="chip"><span class="dotcolor"></span>PyTorch</span>
-              <span class="chip"><span class="dotcolor"></span>Torchaudio</span>
-              <span class="chip"><span class="dotcolor"></span>CNN / Deep Learning</span>
-              <span class="chip"><span class="dotcolor"></span>NLP</span>
-              <span class="chip"><span class="dotcolor"></span>Transformers (ByT5)</span>
-              <span class="chip"><span class="dotcolor"></span>LangChain</span>
-              <span class="chip"><span class="dotcolor"></span>RAG pipelines</span>
-              <span class="chip"><span class="dotcolor"></span>OpenAI / LLM API</span>
-              <span class="chip"><span class="dotcolor"></span>Vector embeddings</span>
-            </div>
-          </section>
-
-          <section>
-            <h2 class="section-title mb-3">
-              <span class="lang-mn">УР ЧАДВАР · BACKEND &amp; DATA</span>
-              <span class="lang-en">SKILLS · BACKEND &amp; DATA</span>
-            </h2>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="chip">FastAPI</span>
-              <span class="chip">PostgreSQL</span>
-              <span class="chip">Qdrant</span>
-              <span class="chip">Apache Solr</span>
-              <span class="chip">SQLAlchemy</span>
-              <span class="chip">JWT auth</span>
-              <span class="chip">Docker</span>
-              <span class="chip">REST APIs</span>
-              <span class="chip">Selenium</span>
-              <span class="chip">C / C++</span>
-            </div>
-          </section>
-
-          <section>
-            <h2 class="section-title mb-3">
-              <span class="lang-mn">УР ЧАДВАР · FRONTEND &amp; TOOLS</span>
-              <span class="lang-en">SKILLS · FRONTEND &amp; TOOLS</span>
-            </h2>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="chip">HTML / CSS</span>
-              <span class="chip">Tailwind CSS</span>
-              <span class="chip">Vue.js</span>
-              <span class="chip">Nuxt</span>
-              <span class="chip">Git</span>
-              <span class="chip">GitButler</span>
-              <span class="chip">Algorithms</span>
-              <span class="chip">Combinatorics</span>
-            </div>
-          </section>
-
-          <section>
-            <h2 class="section-title mb-3">
-              <span class="lang-mn">БОЛОВСРОЛ</span>
-              <span class="lang-en">EDUCATION</span>
-            </h2>
-            <div class="space-y-1">
-              <h3 class="font-semibold text-ink">
-                <span class="lang-mn">Бакалавр, Компьютерийн ухаан</span>
-                <span class="lang-en">B.Sc., Computer Science</span>
-              </h3>
-              <p class="text-sm text-muted">
-                <span class="lang-mn">МУИС — Мэдээлэл, Технологи, Электроникийн сургууль</span>
-                <span class="lang-en">National University of Mongolia — School of Information Technology &amp; Electronics</span>
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">MID Success Factor</h3>
+              <p class="text-sm text-neutral-500 mt-0.5">
+                <span class="lang-mn">ML / Software Engineer · Улаанбаатар</span>
+                <span class="lang-en">ML / Software Engineer · Ulaanbaatar</span>
               </p>
-              <p class="text-xs font-mono text-muted">Sep 2021 — Jun 2025 · GPA 3.1/4.0</p>
-              <p class="text-sm text-ink/80 mt-2 leading-relaxed lang-mn">
+              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 lang-mn">
+                Production-ready RAG чатбот, NLP pipeline, ERP автоматжуулалт чиглэлээр
+                <strong>4 том төслийг бие даан архитектураас deploy</strong> хүртэл хүргэсэн.
+                Голчлон LLM-based системм, vector search, cross-lingual document retrieval-д ажилласан.
+              </p>
+              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 lang-en">
+                Independently designed, built, and shipped <strong>4 production projects</strong>
+                end-to-end — RAG chatbots, NLP pipelines, and ERP automation. Focus areas:
+                LLM-based systems, vector search, and cross-lingual document retrieval.
+              </p>
+              <ul class="mt-3 space-y-1.5 text-[13.5px] text-neutral-700">
+                <li class="flex gap-3">
+                  <span class="text-[var(--accent)] mt-1">▸</span>
+                  <span><span class="font-mono text-[var(--ink)] font-medium">shargaljuut-chatbot</span> —
+                    multi-domain RAG · FastAPI · Qdrant + Solr hybrid search · function calling · JWT auth.</span>
+                </li>
+                <li class="flex gap-3">
+                  <span class="text-[var(--accent)] mt-1">▸</span>
+                  <span><span class="font-mono text-[var(--ink)] font-medium">latin2cyrillic-convertor</span> —
+                    Trie + N-gram + ByT5 hybrid NLP pipeline · 3M synthetic pairs · on-device.</span>
+                </li>
+                <li class="flex gap-3">
+                  <span class="text-[var(--accent)] mt-1">▸</span>
+                  <span><span class="font-mono text-[var(--ink)] font-medium">odoo-docs-rag</span> —
+                    <span class="lang-mn">cross-lingual чатбот (англи доком → монгол хариулт).</span>
+                    <span class="lang-en">cross-lingual chatbot (English docs → Mongolian answers).</span></span>
+                </li>
+                <li class="flex gap-3">
+                  <span class="text-[var(--accent)] mt-1">▸</span>
+                  <span><span class="font-mono text-[var(--ink)] font-medium">odoo-kb-scraper</span> —
+                    Selenium automation · 32+
+                    <span class="lang-mn">модуль scrape + батч орчуулга.</span>
+                    <span class="lang-en">modules scraped + batch translation.</span></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Entry: M-Bank -->
+          <div class="entry">
+            <div class="entry-meta">JAN 2025<br/>—&nbsp;APR 2025</div>
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">M-Bank</h3>
+              <p class="text-sm text-neutral-500 mt-0.5">
+                <span class="lang-mn">Картын системийн хөгжүүлэгч · Улаанбаатар</span>
+                <span class="lang-en">Card Systems Developer · Ulaanbaatar</span>
+              </p>
+              <ul class="mt-3 space-y-1.5 text-[14px] leading-relaxed text-neutral-800 lang-mn">
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Картын системийн хөгжүүлэлтийн хэлтэст ажиллаж, банкны IT орчны процесстой танилцсан.</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Томоохон байгууллагын кодын хяналт, deploy урсгал, тестийн стандартыг бодит төсөл дээр хэрэглэсэн.</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Багийн орчинд <strong>Git workflow</strong>, code review соёлд хурдан дасан зохицсон.</span></li>
+              </ul>
+              <ul class="mt-3 space-y-1.5 text-[14px] leading-relaxed text-neutral-800 lang-en">
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Developer on the card-systems team — hands-on exposure to real banking IT processes.</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Applied enterprise code review, deploy pipelines, and testing standards to live projects.</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Quickly adopted team-based <strong>Git workflows</strong> and code-review culture.</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Entry: Family business -->
+          <div class="entry">
+            <div class="entry-meta">JAN 2020<br/>—&nbsp;MAY 2024</div>
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">
+                <span class="lang-mn">Хөгжил дэлгүүр</span>
+                <span class="lang-en">Khugjil Store (Family Business)</span>
+              </h3>
+              <p class="text-sm text-neutral-500 mt-0.5">
+                <span class="lang-mn">Ажилтан · Улаанбаатар + USA (зун 2024)</span>
+                <span class="lang-en">Associate · Ulaanbaatar + USA (summer 2024)</span>
+              </p>
+              <ul class="mt-3 space-y-1.5 text-[14px] leading-relaxed text-neutral-800 lang-mn">
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Гэр бүлийн бизнест дэмжлэг үзүүлж, борлуулалт, харилцагч талтай ажиллах туршлага хуримтлуулсан.</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>2024 оны зун АНУ-д <strong>3 сар</strong> ажиллаж, олон улсын орчинд англи хэлний дадлага, харилцааны ур чадвараа сайжруулсан.</span></li>
+              </ul>
+              <ul class="mt-3 space-y-1.5 text-[14px] leading-relaxed text-neutral-800 lang-en">
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Supported family business operations — built core sales and customer-communication skills.</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Worked in the USA for <strong>3 months</strong> in summer 2024, strengthening English and cross-cultural professional skills.</span></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 03 PROJECTS ===== -->
+        <section class="section-block">
+          <div class="flex items-center gap-4 mb-6">
+            <span class="section-num">03</span>
+            <h2 class="section-title">
+              <span class="lang-mn">Гол төслүүд</span>
+              <span class="lang-en">Selected Projects</span>
+            </h2>
+            <span class="section-rule"></span>
+          </div>
+
+          <div>
+            <!-- Project 1 -->
+            <div class="project">
+              <div class="flex items-baseline gap-2 flex-wrap">
+                <span class="project-name">shargaljuut-chatbot/</span>
+                <span class="leader"></span>
+                <span class="font-mono text-[11px] text-neutral-500 tracking-wider uppercase">@ MID Success Factor</span>
+              </div>
+              <h3 class="text-lg font-semibold mt-2 tracking-tight">
+                <span class="lang-mn">Multi-Domain RAG чатбот</span>
+                <span class="lang-en">Multi-Domain RAG Chatbot</span>
+              </h3>
+              <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-mn">
+                Эмчилгээ/амралтын газрын олон-доменийн чатбот. <strong>Hybrid Search</strong>
+                (Qdrant vector + Solr keyword + RRF fusion), function calling-тэй
+                intent classification, JWT + refresh-token authentication, rate-limiting
+                болон security headers-тэй production-д бэлэн систем.
+              </p>
+              <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-en">
+                A multi-domain wellness/spa chatbot. <strong>Hybrid search</strong>
+                (Qdrant vectors + Solr keywords + RRF fusion), function-calling
+                intent classification, JWT + refresh tokens, rate-limiting and security
+                headers — production-ready end-to-end.
+              </p>
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                <span class="tag">FastAPI</span>
+                <span class="tag">OpenAI</span>
+                <span class="tag">Qdrant</span>
+                <span class="tag">Solr</span>
+                <span class="tag">LangChain</span>
+                <span class="tag">PostgreSQL</span>
+                <span class="tag-ghost">RAG</span>
+                <span class="tag-ghost">function-calling</span>
+              </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project">
+              <div class="flex items-baseline gap-2 flex-wrap">
+                <span class="project-name">latin2cyrillic-convertor/</span>
+                <span class="leader"></span>
+                <span class="font-mono text-[11px] text-neutral-500 tracking-wider uppercase">NLP R&amp;D</span>
+              </div>
+              <h3 class="text-lg font-semibold mt-2 tracking-tight">
+                Mongolian Latin → Cyrillic Transliterator
+              </h3>
+              <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-mn">
+                Албан бус латин үсгээр бичсэн монгол текстийг (Facebook, чат)
+                <strong>зөв кирилл</strong> рүү хөрвүүлдэг hybrid NLP pipeline.
+                4 шатлалт: Trie dict → bigram/trigram LM → byte-level
+                <strong>ByT5</strong> seq2seq → vowel-harmony checker.
+                3M synthetic pair-тэй corpus, Apple M1 (MPS) дээр локалаар инференц.
+              </p>
+              <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-en">
+                Hybrid NLP pipeline that converts informal Latin-script Mongolian
+                (Facebook, chat) into <strong>correct Cyrillic</strong>. Four-stage:
+                Trie dict → bigram/trigram LM → byte-level <strong>ByT5</strong>
+                seq2seq → vowel-harmony checker. Trained on 3M synthetic pairs,
+                runs locally on Apple M1 (MPS).
+              </p>
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                <span class="tag">ByT5</span>
+                <span class="tag">N-gram LM</span>
+                <span class="tag">Trie</span>
+                <span class="tag">Vowel Harmony</span>
+                <span class="tag-ghost">seq2seq</span>
+                <span class="tag-ghost">on-device</span>
+                <span class="tag-ghost">3M synthetic</span>
+              </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project">
+              <div class="flex items-baseline gap-2 flex-wrap">
+                <span class="project-name">odoo-docs-rag/</span>
+                <span class="leader"></span>
+                <span class="font-mono text-[11px] text-neutral-500 tracking-wider uppercase">Cross-lingual</span>
+              </div>
+              <h3 class="text-lg font-semibold mt-2 tracking-tight">
+                Odoo Documentation RAG Chatbot
+              </h3>
+              <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-mn">
+                Англи Odoo баримтуудыг уншиж <strong>монгол хариулт өгдөг</strong>
+                RAG чатбот. Section-based chunking, idempotent indexing (нэг л удаа
+                embedding), top-K retrieval + LLM хариулт. .txt / .md / .rst / .html дэмжинэ.
+              </p>
+              <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-en">
+                A RAG chatbot that ingests English Odoo docs and <strong>answers
+                in Mongolian</strong>. Section-based chunking, idempotent indexing,
+                top-K retrieval + LLM generation. Supports .txt / .md / .rst / .html.
+              </p>
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                <span class="tag">FastAPI</span>
+                <span class="tag">Qdrant</span>
+                <span class="tag">text-embedding-3-large</span>
+                <span class="tag">PostgreSQL</span>
+                <span class="tag-ghost">cross-lingual</span>
+              </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project">
+              <div class="flex items-baseline gap-2 flex-wrap">
+                <span class="project-name">odoo-kb-scraper/</span>
+                <span class="leader"></span>
+                <span class="font-mono text-[11px] text-neutral-500 tracking-wider uppercase">Automation</span>
+              </div>
+              <h3 class="text-lg font-semibold mt-2 tracking-tight">
+                Odoo Knowledge Base Scraper &amp; Translator
+              </h3>
+              <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-mn">
+                Odoo knowledge base-ээс <strong>32+ модулиар</strong> автомат scrape
+                хийж, RST + JSON форматаар хадгалж, дараа нь монгол руу багцлан
+                орчуулдаг pipeline. (Timesheet, POS, Accounting, Customs г.м.)
+              </p>
+              <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-en">
+                Automation pipeline that <strong>scrapes 32+ modules</strong> from
+                the customer's Odoo knowledge base, exports to RST + JSON, and
+                batch-translates into Mongolian. (Timesheet, POS, Accounting, Customs, etc.)
+              </p>
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                <span class="tag">Selenium</span>
+                <span class="tag">RST / JSON</span>
+                <span class="tag">OpenAI</span>
+                <span class="tag-ghost">batch translation</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 04 RESEARCH ===== -->
+        <section class="section-block">
+          <div class="flex items-center gap-4 mb-6">
+            <span class="section-num">04</span>
+            <h2 class="section-title">
+              <span class="lang-mn">Судалгаа</span>
+              <span class="lang-en">Research</span>
+            </h2>
+            <span class="section-rule"></span>
+          </div>
+
+          <div class="entry">
+            <div class="entry-meta">JUL 2025<br/>—&nbsp;PRESENT</div>
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">
+                <span class="lang-mn">Бие даасан ML судалгаа</span>
+                <span class="lang-en">Independent ML Research</span>
+              </h3>
+              <p class="text-sm text-neutral-500 mt-0.5">Combinatorics · Algorithms · Neural Networks</p>
+              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
+                Машин сургалтын онолын суурийг гүнзгийрүүлэх судалгаа —
+                <strong>Combinatorics</strong>, <strong>algorithm design</strong>,
+                <strong>neural network</strong> архитектурын чиглэлд. Онолын мэдлэгээ
+                бодит prototype загвар руу хувиргадаг.
+              </p>
+              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
+                Independent research deepening the theoretical foundations of ML —
+                <strong>combinatorics</strong>, <strong>algorithm design</strong>, and
+                <strong>neural network</strong> architectures. Translating theory into
+                working prototype models.
+              </p>
+            </div>
+          </div>
+
+          <div class="entry">
+            <div class="entry-meta">
+              2024<br/>—&nbsp;2025
+              <div class="mt-2 tag-ghost inline-block">thesis</div>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">
+                <span class="lang-mn">Хүүхдийн уйлалтын аудио ангилал</span>
+                <span class="lang-en">Infant Cry Audio Classification</span>
+              </h3>
+              <p class="text-sm text-neutral-500 mt-0.5">PyTorch · Torchaudio · CNN · Feature Engineering</p>
+              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
+                Хүүхдийн уйлалтыг шалтгаанаар нь <strong>5 ангилалд</strong>
+                (belly pain · burping · discomfort · hungry · tired) ялгах CNN загвар.
+                Mel-spectrogram, MFCC, ZCR, Chroma, Spectral Contrast, Tonnetz feature-уудыг
+                ашиглаж, tempo/pitch/noise data augmentation-аар ангилал тус бүрт 300+ дээж
+                үүсгэн generalization сайжруулсан. Torchaudio-ээр GPU-accelerated training.
+              </p>
+              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
+                CNN that classifies infant cries into <strong>5 categories</strong>
+                (belly pain · burping · discomfort · hungry · tired). Uses Mel-spectrogram,
+                MFCC, ZCR, Chroma, Spectral Contrast, and Tonnetz features. Tempo/pitch/noise
+                augmentation produced 300+ samples per class, improving generalization.
+                GPU-accelerated training via Torchaudio.
+              </p>
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                <span class="tag-ghost">Mel-spectrogram</span>
+                <span class="tag-ghost">MFCC</span>
+                <span class="tag-ghost">data augmentation</span>
+                <span class="tag-ghost">5-class CNN</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="entry">
+            <div class="entry-meta">2023<br/>—&nbsp;2024</div>
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">
+                <span class="lang-mn">Компьютер хараа · туршилт</span>
+                <span class="lang-en">Computer Vision · explorations</span>
+              </h3>
+              <ul class="mt-3 space-y-1.5 text-[14px] text-neutral-800 lang-mn">
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span><strong>Замын гэрлэн дохио танилт</strong> — image classification.</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span><strong>Object detection</strong> — bounding-box pipeline.</span></li>
+              </ul>
+              <ul class="mt-3 space-y-1.5 text-[14px] text-neutral-800 lang-en">
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span><strong>Traffic-light recognition</strong> — image classification.</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span><strong>Object detection</strong> — bounding-box pipeline.</span></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 05 SKILLS ===== -->
+        <section class="section-block">
+          <div class="flex items-center gap-4 mb-6">
+            <span class="section-num">05</span>
+            <h2 class="section-title">
+              <span class="lang-mn">Ур чадвар</span>
+              <span class="lang-en">Skills</span>
+            </h2>
+            <span class="section-rule"></span>
+          </div>
+
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-x-6 gap-y-2 items-start">
+              <div class="font-mono text-xs uppercase tracking-wider text-neutral-500 pt-1">ML / AI</div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="tag">Python</span><span class="tag">PyTorch</span>
+                <span class="tag">Torchaudio</span><span class="tag">CNN</span>
+                <span class="tag">Deep Learning</span><span class="tag">NLP</span>
+                <span class="tag">Transformers (ByT5)</span><span class="tag">LangChain</span>
+                <span class="tag">RAG pipelines</span><span class="tag">OpenAI / LLM API</span>
+                <span class="tag">Vector embeddings</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-x-6 gap-y-2 items-start">
+              <div class="font-mono text-xs uppercase tracking-wider text-neutral-500 pt-1">Backend / Data</div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="tag">FastAPI</span><span class="tag">PostgreSQL</span>
+                <span class="tag">Qdrant</span><span class="tag">Apache Solr</span>
+                <span class="tag">SQLAlchemy</span><span class="tag">JWT auth</span>
+                <span class="tag">Docker</span><span class="tag">REST APIs</span>
+                <span class="tag">Selenium</span><span class="tag">C / C++</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-x-6 gap-y-2 items-start">
+              <div class="font-mono text-xs uppercase tracking-wider text-neutral-500 pt-1">Frontend / Tools</div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="tag">HTML / CSS</span><span class="tag">Tailwind CSS</span>
+                <span class="tag">Vue.js</span><span class="tag">Nuxt</span>
+                <span class="tag">Git</span><span class="tag">GitButler</span>
+                <span class="tag">Algorithms</span><span class="tag">Combinatorics</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-x-6 gap-y-2 items-start">
+              <div class="font-mono text-xs uppercase tracking-wider text-neutral-500 pt-1">
+                <span class="lang-mn">Хэл</span>
+                <span class="lang-en">Languages</span>
+              </div>
+              <div class="flex flex-wrap gap-3 text-sm">
+                <span><strong>
+                  <span class="lang-mn">Монгол</span>
+                  <span class="lang-en">Mongolian</span>
+                </strong>
+                  <span class="text-neutral-500 font-mono text-xs">
+                    <span class="lang-mn">— эх хэл</span>
+                    <span class="lang-en">— native</span>
+                  </span>
+                </span>
+                <span class="text-neutral-300">·</span>
+                <span><strong>
+                  <span class="lang-mn">Англи</span>
+                  <span class="lang-en">English</span>
+                </strong>
+                  <span class="text-neutral-500 font-mono text-xs">— intermediate</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 06 EDUCATION ===== -->
+        <section class="section-block">
+          <div class="flex items-center gap-4 mb-6">
+            <span class="section-num">06</span>
+            <h2 class="section-title">
+              <span class="lang-mn">Боловсрол</span>
+              <span class="lang-en">Education</span>
+            </h2>
+            <span class="section-rule"></span>
+          </div>
+
+          <div class="entry">
+            <div class="entry-meta">SEP 2021<br/>—&nbsp;JUN 2025</div>
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">
+                <span class="lang-mn">МУИС — Мэдээлэл, Технологи, Электроникийн сургууль</span>
+                <span class="lang-en">National University of Mongolia — School of IT &amp; Electronics</span>
+              </h3>
+              <p class="text-sm text-neutral-500 mt-0.5">
+                <span class="lang-mn">Бакалавр, Компьютерийн ухаан · GPA 3.1/4.0</span>
+                <span class="lang-en">B.Sc. Computer Science · GPA 3.1/4.0</span>
+              </p>
+              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
                 Монголын Үндэсний Программчлалын Олимпиадад сайн дурын ажилтнаар
                 ажиллаж, MoEnko, Голомт Банк, MCS зэрэг компаниудын
-                <strong class="font-semibold">оюутны тэтгэлэгт</strong> хөтөлбөрт сонгогдсон.
+                <strong>оюутны тэтгэлэгт</strong> хөтөлбөрт сонгогдсон.
               </p>
-              <p class="text-sm text-ink/80 mt-2 leading-relaxed lang-en">
-                Volunteered at the Mongolian National Programming Olympiad and was
-                selected for student <strong class="font-semibold">scholarship programs</strong>
-                from MoEnko, Golomt Bank, and MCS.
-              </p>
-            </div>
-          </section>
-
-          <section>
-            <h2 class="section-title mb-3">
-              <span class="lang-mn">СОНИРХОЛ</span>
-              <span class="lang-en">INTERESTS</span>
-            </h2>
-            <ul class="text-sm text-ink/90 space-y-1.5 lang-mn">
-              <li>· Машин сургалтын онолын судалгаа</li>
-              <li>· Аудио / дохио боловсруулалт</li>
-              <li>· Алгоритм, Комбинаторик</li>
-              <li>· Open-source хувь нэмэр</li>
-            </ul>
-            <ul class="text-sm text-ink/90 space-y-1.5 lang-en">
-              <li>· Theoretical ML research</li>
-              <li>· Audio / signal processing</li>
-              <li>· Algorithms &amp; combinatorics</li>
-              <li>· Open-source contributions</li>
-            </ul>
-          </section>
-
-        </aside>
-
-        <!-- Main column -->
-        <section class="px-10 py-10 space-y-10">
-
-          <!-- Profile -->
-          <div>
-            <h2 class="section-title mb-3">
-              <span class="lang-mn">ПРОФАЙЛ</span>
-              <span class="lang-en">PROFILE</span>
-            </h2>
-            <p class="text-ink/90 leading-relaxed lang-mn">
-              Би компьютерийн ухаан мэргэжлээр төгссөн, машин сургалт болон гүн
-              сургалтын чиглэлд гүнзгий судалгаа хийдэг хөгжүүлэгч. MID Success
-              Factor компанид 4 том production төсөл бие даан хүргэж, банкны
-              картын систем хөгжүүлэлтийн туршлагатай. PyTorch ашиглан CNN
-              загвар бүтээх, RAG системм архитектурдах, hybrid NLP pipeline
-              зохиох туршлагатай. Цаашид <span class="font-semibold">ML
-              судлаач / ML engineer</span> чиглэлээр мэргэшиж, бодит хэрэглээний
-              асуудлуудыг шийдвэрлэхийг зорьдог.
-            </p>
-            <p class="text-ink/90 leading-relaxed lang-en">
-              Computer Science graduate and software engineer with deep interest
-              in machine learning and deep learning research. At MID Success
-              Factor, I independently shipped 4 production projects spanning
-              RAG chatbots, hybrid NLP pipelines, and ETL automation. Hands-on
-              experience also includes banking card-system development.
-              Skilled in building CNN models with PyTorch, designing RAG
-              architectures, and crafting hybrid NLP pipelines. Aiming to
-              specialize as an <span class="font-semibold">ML researcher /
-              ML engineer</span> focused on real-world problem solving.
-            </p>
-          </div>
-
-          <!-- Experience -->
-          <div>
-            <h2 class="section-title mb-4">
-              <span class="lang-mn">АЖЛЫН ТУРШЛАГА</span>
-              <span class="lang-en">EXPERIENCE</span>
-            </h2>
-            <ol class="relative timeline space-y-7">
-
-              <li class="relative pl-8">
-                <span class="dot"></span>
-                <div class="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <h3 class="text-lg font-semibold">ML / Software Engineer</h3>
-                  <span class="text-xs font-mono text-muted">Nov 2025 — Jun 2026</span>
-                </div>
-                <p class="text-sm text-sky-700 font-medium">
-                  MID Success Factor ·
-                  <span class="lang-mn">Улаанбаатар</span>
-                  <span class="lang-en">Ulaanbaatar</span>
-                </p>
-                <p class="mt-2 text-sm text-ink/90 leading-relaxed lang-mn">
-                  Production-ready RAG чатбот, NLP pipeline, болон ERP автоматжуулалтын
-                  чиглэлээр <strong>4 том төслийг бие даан</strong> архитектурдаж, хөгжүүлж,
-                  customer-д хүргэсэн. Голчлон LLM-based системм, vector search,
-                  cross-lingual document retrieval-ийн чиглэлд ажилласан.
-                </p>
-                <p class="mt-2 text-sm text-ink/90 leading-relaxed lang-en">
-                  Designed, built, and shipped <strong>4 production projects</strong>
-                  end-to-end, spanning RAG chatbots, NLP pipelines, and ERP
-                  automation. Focus areas: LLM-based systems, vector search,
-                  and cross-lingual document retrieval.
-                </p>
-                <ul class="mt-2 text-sm text-ink/90 leading-relaxed list-disc pl-5 space-y-1 lang-mn">
-                  <li><strong>Shargaljuut chatbot</strong> — multi-domain RAG (FastAPI + Qdrant + Solr hybrid search, function calling, JWT auth, admin dashboard).</li>
-                  <li><strong>Mongolian Latin → Cyrillic transliterator</strong> — Trie + N-gram + ByT5 hybrid NLP pipeline (3M synthetic pairs, on-device inference).</li>
-                  <li><strong>Odoo documentation RAG</strong> — англи доком унших, монгол хариулт өгөх cross-lingual chatbot.</li>
-                  <li><strong>Odoo KB scraper &amp; translator</strong> — Selenium automation pipeline, 32+ модуль доком scrape + батч орчуулга.</li>
-                </ul>
-                <ul class="mt-2 text-sm text-ink/90 leading-relaxed list-disc pl-5 space-y-1 lang-en">
-                  <li><strong>Shargaljuut chatbot</strong> — multi-domain RAG (FastAPI + Qdrant + Solr hybrid search, function calling, JWT auth, admin dashboard).</li>
-                  <li><strong>Mongolian Latin → Cyrillic transliterator</strong> — Trie + N-gram + ByT5 hybrid NLP pipeline (3M synthetic pairs, on-device inference).</li>
-                  <li><strong>Odoo documentation RAG</strong> — cross-lingual chatbot reading English docs and answering in Mongolian.</li>
-                  <li><strong>Odoo KB scraper &amp; translator</strong> — Selenium automation pipeline scraping 32+ modules with batch translation.</li>
-                </ul>
-              </li>
-
-              <li class="relative pl-8">
-                <span class="dot"></span>
-                <div class="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <h3 class="text-lg font-semibold">
-                    <span class="lang-mn">Картын системийн хөгжүүлэгч</span>
-                    <span class="lang-en">Card Systems Developer</span>
-                  </h3>
-                  <span class="text-xs font-mono text-muted">Jan 2025 — Apr 2025</span>
-                </div>
-                <p class="text-sm text-sky-700 font-medium">
-                  <span class="lang-mn">М-Банк (M-Bank) · Улаанбаатар</span>
-                  <span class="lang-en">M-Bank · Ulaanbaatar</span>
-                </p>
-                <ul class="mt-2 text-sm text-ink/90 leading-relaxed list-disc pl-5 space-y-1 lang-mn">
-                  <li>Картын системийн хөгжүүлэлтийн хэлтэст хөгжүүлэгчээр ажиллаж,
-                      бодит банкны IT орчны процесстой танилцсан.</li>
-                  <li>Томоохон байгууллагын кодын хяналт, deploy урсгал, тестийн
-                      стандартыг бодит төсөл дээр хэрэглэсэн.</li>
-                  <li>Багийн орчинд <strong>Git workflow</strong>, code review соёлд хурдан дасан зохицсон.</li>
-                </ul>
-                <ul class="mt-2 text-sm text-ink/90 leading-relaxed list-disc pl-5 space-y-1 lang-en">
-                  <li>Worked as a developer in the card-systems team, gaining
-                      hands-on exposure to real-world banking IT processes.</li>
-                  <li>Applied enterprise-grade code review, deployment pipelines,
-                      and testing standards on real projects.</li>
-                  <li>Quickly adapted to team-based <strong>Git workflows</strong> and code review culture.</li>
-                </ul>
-              </li>
-
-              <li class="relative pl-8">
-                <span class="dot"></span>
-                <div class="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <h3 class="text-lg font-semibold">
-                    <span class="lang-mn">Ажилтан · Family Business Associate</span>
-                    <span class="lang-en">Family Business Associate</span>
-                  </h3>
-                  <span class="text-xs font-mono text-muted">Jan 2020 — May 2024</span>
-                </div>
-                <p class="text-sm text-sky-700 font-medium">
-                  <span class="lang-mn">Хөгжил дэлгүүр · Улаанбаатар + USA</span>
-                  <span class="lang-en">Khugjil Store · Ulaanbaatar + USA</span>
-                </p>
-                <ul class="mt-2 text-sm text-ink/90 leading-relaxed list-disc pl-5 space-y-1 lang-mn">
-                  <li>Гэр бүлийн бизнест дэмжлэг үзүүлж, борлуулалт, үйлчилгээний
-                      үндсэн ур чадвар, харилцагч талтай ажиллах туршлага хуримтлуулсан.</li>
-                  <li>2024 оны зун АНУ-д <strong>3 сар</strong> ажиллаж, олон улсын
-                      хөдөлмөрийн орчинд англи хэлний дадлага, харилцааны ур чадвараа сайжруулсан.</li>
-                </ul>
-                <ul class="mt-2 text-sm text-ink/90 leading-relaxed list-disc pl-5 space-y-1 lang-en">
-                  <li>Supported the family business, developing core sales,
-                      customer service, and client communication skills.</li>
-                  <li>Worked in the USA for <strong>3 months</strong> during summer 2024,
-                      strengthening English fluency and cross-cultural professional communication.</li>
-                </ul>
-              </li>
-            </ol>
-          </div>
-
-          <!-- Projects -->
-          <div>
-            <h2 class="section-title mb-4">
-              <span class="lang-mn">ГОЛ ТӨСЛҮҮД</span>
-              <span class="lang-en">KEY PROJECTS</span>
-            </h2>
-
-            <div class="space-y-4">
-
-              <!-- SHARGALJUUT chatbot -->
-              <div class="rounded-xl border border-slate-200 p-5 hover:border-sky-300 transition-colors bg-white">
-                <div class="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <h3 class="text-lg font-semibold">
-                    <span class="lang-mn">Shargaljuut Chatbot — Multi-Domain RAG системм</span>
-                    <span class="lang-en">Shargaljuut Chatbot — Multi-Domain RAG System</span>
-                  </h3>
-                  <span class="text-xs font-mono text-muted">@ MID Success Factor · Production</span>
-                </div>
-                <p class="text-sm text-sky-700 font-medium">FastAPI · OpenAI · Qdrant · Solr · LangChain</p>
-                <p class="mt-2 text-sm text-ink/90 leading-relaxed lang-mn">
-                  Эмчилгээ/амралтын газрын олон-доменийн чатбот: <strong>Hybrid Search</strong>
-                  (Qdrant vector + Solr keyword + RRF fusion), <strong>function calling</strong>
-                  ашигласан intent classification, JWT + refresh token authentication,
-                  rate limiting болон security headers-тэй production-д бэлэн систем.
-                </p>
-                <p class="mt-2 text-sm text-ink/90 leading-relaxed lang-en">
-                  A multi-domain chatbot for a wellness/spa business: <strong>Hybrid Search</strong>
-                  (Qdrant vectors + Solr keywords + RRF fusion), <strong>function-calling</strong>
-                  based intent classification, JWT + refresh-token authentication, plus
-                  rate-limiting and security headers — production-ready end-to-end.
-                </p>
-                <div class="mt-2 flex flex-wrap gap-1">
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">RAG</span>
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">Function calling</span>
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">JWT auth</span>
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">PostgreSQL</span>
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">Admin dashboard</span>
-                </div>
-              </div>
-
-              <!-- Latin → Cyrillic -->
-              <div class="rounded-xl border border-slate-200 p-5 hover:border-sky-300 transition-colors bg-white">
-                <div class="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <h3 class="text-lg font-semibold">Mongolian Latin → Cyrillic Transliterator</h3>
-                  <span class="text-xs font-mono text-muted">@ MID Success Factor · NLP R&amp;D</span>
-                </div>
-                <p class="text-sm text-sky-700 font-medium">ByT5 · N-gram LM · Trie · Vowel Harmony</p>
-                <p class="mt-2 text-sm text-ink/90 leading-relaxed lang-mn">
-                  Албан бус латин үсгээр бичсэн монгол текстийг (Facebook сэтгэгдэл,
-                  чат) <strong>зөв кирилл</strong> рүү хөрвүүлдэг hybrid NLP pipeline.
-                  4 шатлалт архитектур: Trie dictionary lookup → bigram/trigram LM →
-                  byte-level <strong>ByT5</strong> neural seq2seq → vowel harmony checker.
-                  3M synthetic parallel pair-тэй өгөгдлийн corpus, Apple M1 (MPS) дээр
-                  локалаар инференц хийдэг.
-                </p>
-                <p class="mt-2 text-sm text-ink/90 leading-relaxed lang-en">
-                  A hybrid NLP pipeline that converts informal Latin-script Mongolian
-                  (Facebook comments, chat) into <strong>correct Cyrillic</strong>.
-                  Four-stage architecture: Trie dictionary lookup → bigram/trigram LM →
-                  byte-level <strong>ByT5</strong> neural seq2seq → vowel-harmony checker.
-                  Trained on a 3M synthetic parallel-pair corpus and runs locally
-                  on-device with Apple M1 (MPS) acceleration.
-                </p>
-                <div class="mt-2 flex flex-wrap gap-1">
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">seq2seq</span>
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">Synthetic data 3M</span>
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">Vowel harmony</span>
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">MPS / on-device</span>
-                </div>
-              </div>
-
-              <!-- Odoo RAG Chatbot -->
-              <div class="rounded-xl border border-slate-200 p-5 hover:border-sky-300 transition-colors bg-white">
-                <div class="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <h3 class="text-lg font-semibold">Odoo Documentation RAG Chatbot</h3>
-                  <span class="text-xs font-mono text-muted">@ MID Success Factor · Cross-lingual</span>
-                </div>
-                <p class="text-sm text-sky-700 font-medium">FastAPI · Qdrant · OpenAI embeddings · PostgreSQL</p>
-                <p class="mt-2 text-sm text-ink/90 leading-relaxed lang-mn">
-                  Англи хэлтэй Odoo баримтуудыг уншиж <strong>монгол хэл дээр хариулдаг</strong>
-                  RAG чатбот. Section-based chunking, idempotent indexing (нэг л удаа embedding),
-                  top-K retrieval + LLM хариулт. .txt / .md / .rst / .html форматыг дэмжинэ.
-                </p>
-                <p class="mt-2 text-sm text-ink/90 leading-relaxed lang-en">
-                  A RAG chatbot that ingests English-language Odoo docs and
-                  <strong>answers in Mongolian</strong>. Section-based chunking,
-                  idempotent indexing (embeds once, never re-embeds), top-K retrieval
-                  with LLM-based generation. Supports .txt / .md / .rst / .html formats.
-                </p>
-                <div class="mt-2 flex flex-wrap gap-1">
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">text-embedding-3-large</span>
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">Section chunking</span>
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">Search history</span>
-                </div>
-              </div>
-
-              <!-- Odoo Scraper -->
-              <div class="rounded-xl border border-slate-200 p-5 hover:border-sky-300 transition-colors bg-white">
-                <div class="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <h3 class="text-lg font-semibold">Odoo Knowledge Base Scraper &amp; Translator</h3>
-                  <span class="text-xs font-mono text-muted">@ MID Success Factor · Automation</span>
-                </div>
-                <p class="text-sm text-sky-700 font-medium">Selenium · RST · JSON · OpenAI translation</p>
-                <p class="mt-2 text-sm text-ink/90 leading-relaxed lang-mn">
-                  Odoo knowledge base-ээс <strong>32 модулиар нийт зүйлсийг автоматаар</strong>
-                  scrape хийж, RST + JSON форматаар хадгалж, дараа нь монгол хэл рүү багцлан
-                  орчуулдаг автомат pipeline. (Timesheet, POS, Accounting, Customs гэх мэт)
-                </p>
-                <p class="mt-2 text-sm text-ink/90 leading-relaxed lang-en">
-                  An automation pipeline that <strong>scrapes 32+ modules</strong>
-                  from the customer's Odoo knowledge base, exports to RST + JSON,
-                  and batch-translates the content into Mongolian.
-                  (Timesheet, POS, Accounting, Customs, etc.)
-                </p>
-                <div class="mt-2 flex flex-wrap gap-1">
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">Selenium auth</span>
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">Batch translation</span>
-                  <span class="text-[11px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded">RST output</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Research -->
-          <div>
-            <h2 class="section-title mb-4">
-              <span class="lang-mn">СУДАЛГАА</span>
-              <span class="lang-en">RESEARCH</span>
-            </h2>
-
-            <!-- Independent ML research -->
-            <div class="rounded-xl border border-sky-200 p-5 mb-4 bg-sky-50/40">
-              <div class="flex flex-wrap items-baseline justify-between gap-x-3">
-                <h3 class="text-lg font-semibold">
-                  <span class="lang-mn">Independent ML Research — Хувийн судалгаа</span>
-                  <span class="lang-en">Independent ML Research</span>
-                </h3>
-                <span class="text-xs font-mono text-muted">Jul 2025 — Present</span>
-              </div>
-              <p class="text-sm text-sky-700 font-medium">Combinatorics · Algorithms · Neural Networks</p>
-              <p class="mt-2 text-sm text-ink/90 leading-relaxed lang-mn">
-                Машин сургалтын онолын суурийг гүнзгийрүүлэх, тэр дундаа
-                <strong>Combinatorics</strong>, <strong>Algorithm design</strong>, болон
-                <strong>Neural Network</strong> архитектурын чиглэлээр бие даан судалгаа
-                хийж байна. Онолын мэдлэгээ бодит prototype загвар руу хувиргах
-                ажлуудыг практикжуулдаг.
-              </p>
-              <p class="mt-2 text-sm text-ink/90 leading-relaxed lang-en">
-                Independent research deepening the theoretical foundations of
-                machine learning — particularly <strong>combinatorics</strong>,
-                <strong>algorithm design</strong>, and <strong>neural network</strong>
-                architectures. Translating theory into working prototype models.
+              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
+                Volunteered at the Mongolian National Programming Olympiad. Selected for
+                <strong>student scholarship programs</strong> from MoEnko, Golomt Bank, and MCS.
               </p>
             </div>
+          </div>
+        </section>
 
-            <div class="rounded-xl border border-slate-200 p-5 bg-gradient-to-br from-sky-50 to-white">
-              <div class="flex flex-wrap items-baseline justify-between gap-x-3">
-                <h3 class="text-lg font-semibold">
-                  <span class="lang-mn">Хүүхдийн уйлалтын аудио ангилал · Infant Cry Classification</span>
-                  <span class="lang-en">Infant Cry Audio Classification</span>
-                </h3>
-                <span class="text-xs font-mono text-muted">Bachelor's thesis</span>
-              </div>
-              <p class="text-sm text-muted">PyTorch · Torchaudio · CNN · Feature Engineering</p>
-
-              <p class="mt-3 text-sm text-ink/90 leading-relaxed lang-mn">
-                Хүүхдийн уйлалтыг шалтгаанаар нь
-                <strong>5 ангилалд</strong> (belly pain · burping · discomfort · hungry · tired)
-                ялгах гүн сургалтын загвар бүтээж туршсан.
-              </p>
-              <p class="mt-3 text-sm text-ink/90 leading-relaxed lang-en">
-                Built and evaluated a deep-learning model that classifies infant
-                cries into <strong>5 categories</strong> by underlying cause:
-                belly pain · burping · discomfort · hungry · tired.
-              </p>
-
-              <div class="mt-4 grid sm:grid-cols-3 gap-3 text-sm">
-                <div class="rounded-lg bg-white border border-slate-200 p-3">
-                  <p class="font-semibold text-ink">Feature extraction</p>
-                  <p class="text-muted text-xs mt-1 leading-relaxed">
-                    Mel-spectrogram, MFCC, ZCR, Chroma, Spectral Contrast, Tonnetz
-                  </p>
-                </div>
-                <div class="rounded-lg bg-white border border-slate-200 p-3">
-                  <p class="font-semibold text-ink">Data augmentation</p>
-                  <p class="text-muted text-xs mt-1 leading-relaxed lang-mn">
-                    Tempo / pitch shift, noise injection — ангилал тус бүрт
-                    <strong>300+ дээж</strong> үүсгэж generalization сайжруулсан.
-                  </p>
-                  <p class="text-muted text-xs mt-1 leading-relaxed lang-en">
-                    Tempo / pitch shift and noise injection produced
-                    <strong>300+ samples</strong> per class, improving generalization.
-                  </p>
-                </div>
-                <div class="rounded-lg bg-white border border-slate-200 p-3">
-                  <p class="font-semibold text-ink">Model &amp; Training</p>
-                  <p class="text-muted text-xs mt-1 leading-relaxed lang-mn">
-                    PyTorch дээр CNN, hyperparameter tuning; Torchaudio-ээр
-                    tensor хөрвүүлэлт, GPU дээр boost хийсэн.
-                  </p>
-                  <p class="text-muted text-xs mt-1 leading-relaxed lang-en">
-                    CNN in PyTorch with hyperparameter tuning; Torchaudio for
-                    tensor conversion and GPU-accelerated processing.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <ul class="mt-4 text-sm text-ink/90 space-y-2 lang-mn">
-              <li class="flex gap-3">
-                <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0"></span>
-                <span><strong>Замын гэрлэн дохио танилт</strong> — компьютер хараа,
-                  image classification.</span>
-              </li>
-              <li class="flex gap-3">
-                <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0"></span>
-                <span><strong>Зургаас object detection</strong> — bounding box,
-                  модель тестийн pipeline.</span>
-              </li>
-            </ul>
-            <ul class="mt-4 text-sm text-ink/90 space-y-2 lang-en">
-              <li class="flex gap-3">
-                <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0"></span>
-                <span><strong>Traffic-light recognition</strong> — computer vision and image classification.</span>
-              </li>
-              <li class="flex gap-3">
-                <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-500 shrink-0"></span>
-                <span><strong>Object detection from images</strong> — bounding boxes and a model-testing pipeline.</span>
-              </li>
-            </ul>
+        <!-- ===== 07 ACHIEVEMENTS ===== -->
+        <section class="section-block">
+          <div class="flex items-center gap-4 mb-6">
+            <span class="section-num">07</span>
+            <h2 class="section-title">
+              <span class="lang-mn">Амжилт &amp; Хүлээн зөвшөөрөл</span>
+              <span class="lang-en">Awards &amp; Recognition</span>
+            </h2>
+            <span class="section-rule"></span>
           </div>
 
-          <!-- Achievements -->
-          <div>
-            <h2 class="section-title mb-3">
-              <span class="lang-mn">АМЖИЛТ</span>
-              <span class="lang-en">ACHIEVEMENTS</span>
-            </h2>
-            <ul class="grid sm:grid-cols-2 gap-2.5 text-sm">
-              <li class="rounded-lg border border-slate-200 p-3 bg-white">
-                <p class="font-semibold">
+          <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-[14px]">
+            <li class="award flex gap-3">
+              <span class="font-mono text-xs text-neutral-400 mt-1">01</span>
+              <div>
+                <p class="font-medium text-[var(--ink)]">
                   <span class="lang-mn">MoEnko оюутны тэтгэлэг</span>
                   <span class="lang-en">MoEnko Student Scholarship</span>
                 </p>
-                <p class="text-muted text-xs">
+                <p class="text-neutral-500 text-xs mt-0.5">
                   <span class="lang-mn">Академик амжилтаар сонгогдсон</span>
                   <span class="lang-en">Selected on academic merit</span>
                 </p>
-              </li>
-              <li class="rounded-lg border border-slate-200 p-3 bg-white">
-                <p class="font-semibold">
+              </div>
+            </li>
+            <li class="award flex gap-3">
+              <span class="font-mono text-xs text-neutral-400 mt-1">02</span>
+              <div>
+                <p class="font-medium text-[var(--ink)]">
                   <span class="lang-mn">Голомт банк тэтгэлэг</span>
                   <span class="lang-en">Golomt Bank Scholarship</span>
                 </p>
-                <p class="text-muted text-xs">
+                <p class="text-neutral-500 text-xs mt-0.5">
                   <span class="lang-mn">Тэргүүн оюутны хөтөлбөр</span>
                   <span class="lang-en">Top-student program</span>
                 </p>
-              </li>
-              <li class="rounded-lg border border-slate-200 p-3 bg-white">
-                <p class="font-semibold">
+              </div>
+            </li>
+            <li class="award flex gap-3">
+              <span class="font-mono text-xs text-neutral-400 mt-1">03</span>
+              <div>
+                <p class="font-medium text-[var(--ink)]">
                   <span class="lang-mn">MCS тэтгэлэг</span>
                   <span class="lang-en">MCS Scholarship</span>
                 </p>
-                <p class="text-muted text-xs">
+                <p class="text-neutral-500 text-xs mt-0.5">
                   <span class="lang-mn">IT чиглэлийн оюутнуудад</span>
                   <span class="lang-en">For IT-track students</span>
                 </p>
-              </li>
-              <li class="rounded-lg border border-slate-200 p-3 bg-white">
-                <p class="font-semibold">
+              </div>
+            </li>
+            <li class="award flex gap-3">
+              <span class="font-mono text-xs text-neutral-400 mt-1">04</span>
+              <div>
+                <p class="font-medium text-[var(--ink)]">
                   <span class="lang-mn">Үндэсний программчлалын олимпиад</span>
                   <span class="lang-en">National Programming Olympiad</span>
                 </p>
-                <p class="text-muted text-xs">
+                <p class="text-neutral-500 text-xs mt-0.5">
                   <span class="lang-mn">Сайн дурын ажилтан · зохион байгуулалт</span>
                   <span class="lang-en">Volunteer · event organization</span>
                 </p>
-              </li>
-            </ul>
-          </div>
-
+              </div>
+            </li>
+          </ul>
         </section>
+
       </div>
 
-      <!-- Footer -->
-      <footer class="px-10 py-5 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs text-muted">
-        <span class="lang-mn">© 2026 Өсөхбаяр Батмөнх · Шинэчлэгдсэн: 2026-05-24</span>
-        <span class="lang-en">© 2026 Usukhbayar Batmunkh · Updated: 2026-05-24</span>
-        <span class="font-mono">Made with Tailwind CSS</span>
+      <!-- ───────── FOOTER ───────── -->
+      <footer class="px-8 md:px-14 py-6 border-t border-neutral-200 flex flex-wrap items-center justify-between gap-3">
+        <span class="footer-meta">
+          <span class="lang-mn">© 2026 Өсөхбаяр Батмөнх</span>
+          <span class="lang-en">© 2026 Usukhbayar Batmunkh</span>
+        </span>
+        <span class="footer-meta">
+          <span class="lang-mn">Шинэчлэгдсэн</span>
+          <span class="lang-en">Updated</span>
+          : 2026-05-24
+        </span>
+        <span class="footer-meta">crafted with HTML &amp; Tailwind</span>
       </footer>
 
     </article>
 
-    <p class="no-print text-center text-xs text-muted mt-6">
-      <span class="lang-mn">Дээд буланд <strong>«PDF татах»</strong> товчийг дарж шууд PDF болгон хадгална уу.</span>
-      <span class="lang-en">Click the <strong>"Download PDF"</strong> button at the top to save as PDF.</span>
+    <p class="no-print text-center text-xs text-neutral-400 mt-8 font-mono">
+      <span class="lang-mn">↑ Дээд буланд "PDF татах" → Save as PDF</span>
+      <span class="lang-en">↑ Top right: "Download PDF" → Save as PDF</span>
     </p>
   </main>
 
@@ -846,7 +988,6 @@
         ? 'Usukhbayar Batmunkh — Computer Scientist · CV'
         : 'Өсөхбаяр Батмөнх — Computer Scientist · CV';
     }
-
     (function () {
       let saved = null;
       try { saved = localStorage.getItem('cv-lang'); } catch (_) {}
