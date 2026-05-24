@@ -1,0 +1,21 @@
+# PDF source / private artifacts
+*.pdf
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Python (хэрэв ирээдүйд Python script-ууд нэмбэл)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Build outputs
+dist/
+build/
+node_modules/
