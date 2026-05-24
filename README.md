@@ -3,13 +3,13 @@
 > Computer Scientist · Machine Learning Engineer · Улаанбаатар, Монгол
 
 Хувийн CV-н орчин үеийн, responsive, print-friendly HTML хувилбар.
-Tailwind CSS дээр бичсэн, нэг файл (`cv.html`) бүхий зөөвөрлөгдөх загвар.
+Tailwind CSS дээр бичсэн, нэг файл (`index.html`) бүхий зөөвөрлөгдөх загвар.
 
 ## Live preview
 
 GitHub Pages идэвхжүүлсний дараа:
 
-👉 **https://osohoo586.github.io/CV/cv.html**
+👉 **https://osohoo586.github.io/CV/** (эсвэл Vercel дээрх URL)
 
 ## Холбоо барих · Contact
 
@@ -28,7 +28,7 @@ GitHub Pages идэвхжүүлсний дараа:
 ## Локалаар ажиллуулах
 
 ```powershell
-start cv.html
+start index.html
 ```
 
 Эсвэл VSCode-ийн **Live Server** extension-ээр live-reload хийгээрэй.
