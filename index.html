@@ -429,7 +429,37 @@
     .soft-mobile                   { display: block !important; }
     /* Collapse the body grid back to single column for clean print flow */
     .md\:grid                      { display: block !important; }
+
+    /* === Show URLs in print for important external links === */
+    a.print-show-url[href]::after {
+      content: " · " attr(href);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9pt;
+      font-weight: normal;
+      color: #4f46e5;
+      word-break: break-all;
+    }
+    /* Ensure links remain clickable AND retain a visual cue */
+    a[href]                        { color: #000 !important; }
+    a[href^="http"]                { color: #4f46e5 !important; }
+
+    /* Compress Daily Stack — tighter rows for print density */
+    .stack-row                     { padding: 2.5pt 0 !important; grid-template-columns: 78px 1fr auto !important; gap: 8pt !important; }
+    .stack-cat                     { font-size: 8pt !important; }
+    .stack-tools                   { font-size: 9pt !important; }
+    .stack-freq                    { font-size: 7.5pt !important; }
+
+    /* Print: AT A GLANCE block compact */
+    .glance-row                    { padding: 2.5pt 0 !important; }
+    .glance-cat                    { font-size: 8.5pt !important; }
+    .glance-val                    { font-size: 9.5pt !important; }
+
+    /* Tighter section blocks for print */
+    .section-block + .section-block { margin-top: 8pt !important; }
+
+    /* Make dark-mode-only overrides for borders also catch neutral-100 */
   }
+  html.dark .border-neutral-100   { border-color: var(--line-2) !important; }
 </style>
 </head>
 <body>
@@ -518,7 +548,7 @@
         <div class="mt-10 pt-6 border-t border-neutral-200 flex flex-wrap gap-x-6 gap-y-2 text-sm font-mono">
           <a href="mailto:osohoo586@gmail.com" class="meta-link">→ osohoo586@gmail.com</a>
           <a href="tel:+97680037577"            class="meta-link">→ +976 8003 7577</a>
-          <a href="https://cv-three-eta-28.vercel.app/" target="_blank" rel="noopener" class="meta-link">
+          <a href="https://cv-three-eta-28.vercel.app/" target="_blank" rel="noopener" class="meta-link print-show-url">
             <span class="lang-mn">→ CV-г вэбээр харах ↗</span>
             <span class="lang-en">→ View CV online ↗</span>
           </a>
@@ -528,35 +558,52 @@
           </span>
         </div>
 
-        <!-- key signal row -->
-        <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-4">
-          <div>
-            <div class="font-mono text-2xl font-semibold">04</div>
-            <div class="text-[11px] font-mono text-neutral-500 uppercase tracking-wider mt-0.5">
-              <span class="lang-mn">production төсөл</span>
-              <span class="lang-en">prod shipments</span>
-            </div>
+        <!-- AT A GLANCE — HR scan-friendly fact block -->
+        <div class="mt-8 border-y border-neutral-200">
+          <div class="glance-row grid grid-cols-[88px_1fr] gap-4 py-2 items-baseline">
+            <span class="glance-cat font-mono text-[10.5px] uppercase tracking-[0.16em] text-[var(--accent)] font-semibold">
+              <span class="lang-mn">Одоо</span>
+              <span class="lang-en">Now</span>
+            </span>
+            <span class="glance-val text-[14px] text-neutral-800">
+              ML / SE <span class="text-neutral-500">@</span>
+              <strong class="text-[var(--ink)]">MID Success Factor</strong>
+              <span class="text-neutral-400">·</span> Nov 2025 → Jun 2026
+            </span>
           </div>
-          <div>
-            <div class="font-mono text-2xl font-semibold">3.1<span class="text-neutral-400">/4</span></div>
-            <div class="text-[11px] font-mono text-neutral-500 uppercase tracking-wider mt-0.5">
-              <span class="lang-mn">бакалаврын голч</span>
-              <span class="lang-en">Bachelor's GPA</span>
-            </div>
+          <div class="glance-row grid grid-cols-[88px_1fr] gap-4 py-2 items-baseline border-t border-neutral-100">
+            <span class="glance-cat font-mono text-[10.5px] uppercase tracking-[0.16em] text-[var(--accent)] font-semibold">Stack</span>
+            <span class="glance-val text-[14px] text-neutral-800 font-mono">
+              Python <span class="text-neutral-400">·</span> PyTorch <span class="text-neutral-400">·</span>
+              FastAPI <span class="text-neutral-400">·</span> OpenAI <span class="text-neutral-400">·</span>
+              Qdrant <span class="text-neutral-400">·</span> LangChain
+            </span>
           </div>
-          <div>
-            <div class="font-mono text-2xl font-semibold">RAG<span class="text-neutral-400">+LLM</span></div>
-            <div class="text-[11px] font-mono text-neutral-500 uppercase tracking-wider mt-0.5">
-              <span class="lang-mn">мэргэшсэн</span>
-              <span class="lang-en">specialization</span>
-            </div>
+          <div class="glance-row grid grid-cols-[88px_1fr] gap-4 py-2 items-baseline border-t border-neutral-100">
+            <span class="glance-cat font-mono text-[10.5px] uppercase tracking-[0.16em] text-[var(--accent)] font-semibold">
+              <span class="lang-mn">Боловсрол</span>
+              <span class="lang-en">Degree</span>
+            </span>
+            <span class="glance-val text-[14px] text-neutral-800">
+              <strong>B.Sc. Computer Science</strong>
+              <span class="text-neutral-400">·</span> NUM
+              <span class="text-neutral-400">·</span> GPA 3.1/4.0
+              <span class="text-neutral-400">·</span> 2025
+            </span>
           </div>
-          <div>
-            <div class="font-mono text-2xl font-semibold">3<span class="text-neutral-400">+</span></div>
-            <div class="text-[11px] font-mono text-neutral-500 uppercase tracking-wider mt-0.5">
-              <span class="lang-mn">тэтгэлэгт хөтөлбөр</span>
-              <span class="lang-en">scholarships</span>
-            </div>
+          <div class="glance-row grid grid-cols-[88px_1fr] gap-4 py-2 items-baseline border-t border-neutral-100">
+            <span class="glance-cat font-mono text-[10.5px] uppercase tracking-[0.16em] text-[var(--accent)] font-semibold">
+              <span class="lang-mn">Хүргэсэн</span>
+              <span class="lang-en">Shipped</span>
+            </span>
+            <span class="glance-val text-[14px] text-neutral-800">
+              <strong class="text-[var(--accent)]">4 production</strong>
+              <span class="lang-mn">төсөл</span><span class="lang-en">projects</span>
+              <span class="text-neutral-400">·</span> RAG
+              <span class="text-neutral-400">·</span> hybrid NLP
+              <span class="text-neutral-400">·</span> cross-lingual retrieval
+              <span class="text-neutral-400">·</span> ETL
+            </span>
           </div>
         </div>
       </header>
@@ -1221,7 +1268,7 @@
             <span class="lang-en">Tools, runtimes, and AI assistants I reach for every day at work.</span>
           </p>
 
-          <div class="border-y border-neutral-200">
+          <div class="border-y border-neutral-200 stack-grid-print">
             <div class="stack-row">
               <div class="stack-cat">Editor</div>
               <div class="stack-tools">VS Code <span class="sep">·</span> Cursor <span class="sep">·</span> Git Bash</div>
@@ -1401,17 +1448,23 @@
       </div>
 
       <!-- ───────── FOOTER ───────── -->
-      <footer class="px-8 md:px-14 py-6 border-t border-neutral-200 flex flex-wrap items-center justify-between gap-3">
-        <span class="footer-meta">
-          <span class="lang-mn">© 2026 Өсөхбаяр Батмөнх</span>
-          <span class="lang-en">© 2026 Usukhbayar Batmunkh</span>
-        </span>
-        <span class="footer-meta">
-          <span class="lang-mn">Шинэчлэгдсэн</span>
-          <span class="lang-en">Updated</span>
-          : 2026-05-24
-        </span>
-        <span class="footer-meta">crafted with HTML &amp; Tailwind</span>
+      <footer class="px-8 md:px-14 py-5 border-t border-neutral-200">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <span class="footer-meta">
+            <span class="lang-mn">© 2026 Өсөхбаяр Батмөнх</span>
+            <span class="lang-en">© 2026 Usukhbayar Batmunkh</span>
+          </span>
+          <a href="https://cv-three-eta-28.vercel.app/" target="_blank" rel="noopener"
+             class="footer-meta meta-link print-show-url">
+            <span class="lang-mn">↗ Live CV</span>
+            <span class="lang-en">↗ Live CV</span>
+          </a>
+          <span class="footer-meta">
+            <span class="lang-mn">Шинэчлэгдсэн</span>
+            <span class="lang-en">Updated</span>
+            : 2026-05-24
+          </span>
+        </div>
       </footer>
 
     </article>
