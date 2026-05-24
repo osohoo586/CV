@@ -27,14 +27,56 @@
     --ink-2: #1c1c1c;
     --sub: #525252;
     --muted: #a3a3a3;
-    --line: #e5e7eb;          /* neutral-200 with a slight cool tone */
+    --line: #e5e7eb;
     --line-2: #f3f4f6;
-    --paper: #fafafa;         /* near-white body */
-    --page: #ffffff;          /* article surface */
-    --accent: #4f46e5;        /* indigo-600 — Stripe/Linear feel */
-    --accent-soft: #eef2ff;   /* indigo-50  */
+    --paper: #fafafa;
+    --page: #ffffff;
+    --accent: #4f46e5;
+    --accent-soft: #eef2ff;
     --ok: #16a34a;
+    --toolbar-bg: rgba(255,255,255,0.85);
+    --shadow-card: 0 1px 2px rgba(10,10,10,0.04);
   }
+
+  /* === Dark mode === */
+  html.dark {
+    --ink: #fafafa;
+    --ink-2: #d4d4d8;
+    --sub: #a3a3a3;
+    --muted: #737373;
+    --line: #27272a;
+    --line-2: #1c1c1f;
+    --paper: #0a0a0a;
+    --page: #111113;
+    --accent: #818cf8;        /* indigo-400 — softer for dark bg */
+    --accent-soft: #1e1b4b;
+    --ok: #22c55e;
+    --toolbar-bg: rgba(17,17,19,0.85);
+    --shadow-card: 0 1px 2px rgba(0,0,0,0.4);
+    color-scheme: dark;
+  }
+  html.dark body { color: var(--ink); }
+
+  /* Override hard-coded Tailwind colours when in dark mode */
+  html.dark .border-neutral-200,
+  html.dark .border-neutral-200\/80     { border-color: var(--line) !important; }
+  html.dark .bg-white\/85,
+  html.dark .bg-white                    { background: var(--page) !important; }
+  html.dark .text-neutral-300,
+  html.dark .text-neutral-400            { color: var(--muted) !important; }
+  html.dark .text-neutral-500,
+  html.dark .text-neutral-600            { color: var(--sub) !important; }
+  html.dark .text-neutral-700,
+  html.dark .text-neutral-800            { color: var(--ink-2) !important; }
+  html.dark .bg-neutral-50               { background: var(--line-2) !important; }
+  html.dark .lang-switch                 { background: var(--page); }
+  html.dark .tool-btn                    { background: var(--page); color: var(--ink); }
+  html.dark .stat                        { background: var(--page); }
+  html.dark .status-pill                 { background: var(--page); color: var(--sub); }
+  html.dark .tag                         { background: var(--page); color: var(--ink); }
+  html.dark .tag-ghost                   { background: var(--line-2); color: var(--sub); }
+  html.dark .status-dot                  { box-shadow: 0 0 0 3px rgba(34,197,94,0.20); }
+  html.dark .bg-white\/85                { background: var(--toolbar-bg) !important; }
 
   html { scroll-behavior: smooth; }
   body {
@@ -43,7 +85,9 @@
     font-family: 'Inter', system-ui, sans-serif;
     font-feature-settings: "ss01","cv11","cv02","cv03","cv04";
     -webkit-font-smoothing: antialiased;
+    transition: background-color .25s ease, color .25s ease;
   }
+  body, body * { transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
 
   /* Language switcher visibility */
   html[lang="mn"] .lang-en { display: none !important; }
@@ -224,10 +268,26 @@
   .tool-btn:hover { border-color: var(--ink); }
   .tool-btn.primary {
     background: var(--ink);
-    color: #fff;
+    color: var(--paper);
     border-color: var(--ink);
   }
-  .tool-btn.primary:hover { background: var(--accent); border-color: var(--accent); }
+  .tool-btn.primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* Theme toggle icon button */
+  .theme-btn {
+    width: 32px; height: 32px;
+    display: inline-grid; place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 9999px;
+    background: var(--page);
+    color: var(--ink);
+    transition: all .15s;
+  }
+  .theme-btn:hover { border-color: var(--ink); }
+  .theme-btn .icon-moon { display: block; }
+  .theme-btn .icon-sun  { display: none; }
+  html.dark .theme-btn .icon-moon { display: none; }
+  html.dark .theme-btn .icon-sun  { display: block; }
 
   /* === Footer === */
   .footer-meta {
@@ -282,6 +342,10 @@
         </span>
       </div>
       <div class="flex items-center gap-2 flex-wrap">
+        <button type="button" class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+          <svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
         <div class="lang-switch" role="group" aria-label="Language switcher">
           <button type="button" id="btn-mn" class="active" onclick="setLang('mn')">МН</button>
           <button type="button" id="btn-en" onclick="setLang('en')">EN</button>
@@ -336,14 +400,14 @@
             <span class="lang-en">// Computer Science · Machine Learning</span>
           </p>
           <p class="mt-4 text-lg md:text-xl leading-snug text-neutral-700 font-normal lang-mn">
-            Production-ready <em class="font-serif italic text-[var(--ink)]">RAG системм</em>,
-            hybrid NLP pipeline, болон <em class="font-serif italic text-[var(--ink)]">deep learning</em>
-            загваруудыг архитектураас deploy хүртэл бие даан хүргэдэг хөгжүүлэгч.
+            <em class="font-serif italic text-[var(--ink)]">RAG системм</em>,
+            hybrid NLP, <em class="font-serif italic text-[var(--ink)]">deep learning</em>
+            загваруудыг архитектураас deploy хүртэл бие даан хүргэнэ.
           </p>
           <p class="mt-4 text-lg md:text-xl leading-snug text-neutral-700 font-normal lang-en">
-            Builds production-ready <em class="font-serif italic text-[var(--ink)]">RAG systems</em>,
-            hybrid NLP pipelines, and <em class="font-serif italic text-[var(--ink)]">deep learning</em>
-            models end-to-end — from architecture to deployment.
+            Building <em class="font-serif italic text-[var(--ink)]">RAG systems</em>,
+            hybrid NLP, and <em class="font-serif italic text-[var(--ink)]">deep learning</em>
+            models end-to-end.
           </p>
         </div>
 
@@ -405,25 +469,18 @@
             <span class="section-rule"></span>
           </div>
           <p class="text-[15px] md:text-base leading-relaxed text-neutral-800 max-w-3xl lang-mn">
-            Би МУИС-ийг компьютерийн ухаан мэргэжлээр төгссөн, машин сургалт ба
-            гүн сургалтын чиглэлд гүнзгий судалгаа хийдэг хөгжүүлэгч.
-            <strong class="font-semibold text-[var(--ink)]">MID Success Factor</strong> компанид
-            7 сарын хугацаанд 4 том production төслийг бие даан хүргэж, банкны
-            картын систем хөгжүүлэлтийн туршлагатай. PyTorch ашиглан CNN загвар
-            бүтээх, RAG системм архитектурдах, hybrid NLP pipeline зохиох туршлагатай.
-            Цаашид <em class="font-serif italic">ML судлаач / ML engineer</em>
-            чиглэлээр мэргэшиж, бодит хэрэглээний асуудлуудыг шийдвэрлэхийг зорьдог.
+            МУИС-ийг компьютерын ухаанаар төгссөн ML / software engineer.
+            <strong class="font-semibold text-[var(--ink)]">MID Success Factor</strong>-д
+            7 сард <strong>4 production төсөл</strong> (RAG, hybrid NLP, ETL) бие даан хүргэсэн.
+            Зорилго — <em class="font-serif italic">ML engineer</em> чиглэлээр
+            мэргэшиж бодит хэрэглээний асуудал шийдвэрлэх.
           </p>
           <p class="text-[15px] md:text-base leading-relaxed text-neutral-800 max-w-3xl lang-en">
-            Computer Science graduate from the National University of Mongolia, with
-            deep interest in machine learning and deep-learning research. Over 7 months
-            at <strong class="font-semibold text-[var(--ink)]">MID Success Factor</strong>,
-            I independently shipped 4 production projects — RAG chatbots, hybrid NLP
-            pipelines, and ETL automation. Earlier banking experience as a Card Systems
-            Developer. Skilled at building CNN models with PyTorch, architecting RAG
-            systems, and engineering hybrid NLP pipelines. Aiming to specialize as an
-            <em class="font-serif italic">ML researcher / ML engineer</em>
-            tackling real-world problems.
+            CS graduate from the National University of Mongolia and ML / software engineer.
+            Independently shipped <strong>4 production projects</strong> (RAG, hybrid NLP, ETL)
+            at <strong class="font-semibold text-[var(--ink)]">MID Success Factor</strong> over 7 months.
+            Aiming to specialize as an <em class="font-serif italic">ML engineer</em>
+            solving real-world problems.
           </p>
         </section>
 
@@ -455,15 +512,11 @@
                 <span class="lang-mn">ML / Software Engineer · Улаанбаатар</span>
                 <span class="lang-en">ML / Software Engineer · Ulaanbaatar</span>
               </p>
-              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 lang-mn">
-                Production-ready RAG чатбот, NLP pipeline, ERP автоматжуулалт чиглэлээр
-                <strong>4 том төслийг бие даан архитектураас deploy</strong> хүртэл хүргэсэн.
-                Голчлон LLM-based системм, vector search, cross-lingual document retrieval-д ажилласан.
+              <p class="mt-3 text-sm font-medium text-[var(--ink)] lang-mn">
+                <strong class="text-[var(--accent)]">4 production төсөл</strong> · бие даан архитектураас deploy хүртэл хүргэсэн.
               </p>
-              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 lang-en">
-                Independently designed, built, and shipped <strong>4 production projects</strong>
-                end-to-end — RAG chatbots, NLP pipelines, and ERP automation. Focus areas:
-                LLM-based systems, vector search, and cross-lingual document retrieval.
+              <p class="mt-3 text-sm font-medium text-[var(--ink)] lang-en">
+                Shipped <strong class="text-[var(--accent)]">4 production projects</strong> end-to-end — architected, built, deployed.
               </p>
               <ul class="mt-3 space-y-1.5 text-[13.5px] text-neutral-700">
                 <li class="flex gap-3">
@@ -502,16 +555,22 @@
                 <span class="lang-mn">Картын системийн хөгжүүлэгч · Улаанбаатар</span>
                 <span class="lang-en">Card Systems Developer · Ulaanbaatar</span>
               </p>
-              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
-                Миний бие М-Банк-д картын систем хөгжүүлэлтийн хэлтэст карт
-                хөгжүүлэгч хийж банкны ажлын орчин болон томоохон банкны IT
-                хэлтэс хэрхэн ажилладаг талаар суралцаж хувийн ур чадвараа нэмсэн.
-              </p>
-              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
-                Worked as a card-systems developer in M-Bank's card-systems department,
-                learning how the bank's IT operations and the IT department of a large
-                bank function, and growing my personal engineering skills.
-              </p>
+              <ul class="mt-3 space-y-1.5 text-[14px] text-neutral-800 lang-mn">
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Карт хөгжүүлэгч · <strong>Картын системийн хэлтэс</strong></span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Томоохон банкны IT процесс · enterprise workflow-той танилцсан</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Хувийн engineering ур чадвараа нэмсэн</span></li>
+              </ul>
+              <ul class="mt-3 space-y-1.5 text-[14px] text-neutral-800 lang-en">
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Card developer · <strong>Card Systems department</strong></span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Hands-on exposure to <strong>large-bank IT operations</strong> &amp; enterprise workflow</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Strengthened personal engineering skills</span></li>
+              </ul>
             </div>
           </div>
 
@@ -527,17 +586,18 @@
                 <span class="lang-mn">Ажилтан · Улаанбаатар + USA (зун 2024)</span>
                 <span class="lang-en">Associate · Ulaanbaatar + USA (summer 2024)</span>
               </p>
-              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
-                Арван жилийн сурагч байхаасаа хойш гэр бүлийн бизнесд дэмжлэг
-                болох зорилгоор ажиллаж 2024 оны зун Америкийн нэгдсэн улсад
-                <strong>3 сарын</strong> хугацаанд ажиллаж ирсэн. Үүнээс хойш
-                аль болох мэргэжлийнхээ дагуу ажиллахыг илүүд үзэх болсон.
-              </p>
-              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
-                Worked from high school onward to support the family business, then
-                spent <strong>3 months</strong> in the United States in summer 2024.
-                After that experience, I committed to working in line with my profession.
-              </p>
+              <ul class="mt-3 space-y-1.5 text-[14px] text-neutral-800 lang-mn">
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Гэр бүлийн бизнест дэмжлэг · ахлахаас эхэлсэн</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span><strong>3 сар АНУ-д</strong> · summer 2024 · англи хэлний орчин</span></li>
+              </ul>
+              <ul class="mt-3 space-y-1.5 text-[14px] text-neutral-800 lang-en">
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Supported family business from high school</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span><strong>3 months in USA</strong> · summer 2024 · cross-cultural work</span></li>
+              </ul>
             </div>
           </div>
         </section>
@@ -712,26 +772,36 @@
                 <strong>Үүнээс хамгийн чухал ажил нь хүүхдийн дуу ангилах ажил</strong>
                 байсан.
               </p>
-              <div class="mt-4 space-y-3 text-[14px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
-                <p>
-                  <strong class="text-[var(--ink)]">Deep Learning / CNN ашигласан:</strong>
-                  Дууны Mel-spectrogram, MFCC, ZCR, Chroma, Spectral Contrast, Tonnetz
-                  зэрэг шинж чанарыг feature extraction-ийн аргаар гаргаж, Convolutional
-                  Neural Network (CNN) загварт оруулж, хүүхдийн уйлалтын ангиллыг
-                  5 төрөлд (belly pain, burping, discomfort, hungry, tired) таньсан.
-                </p>
-                <p>
-                  <strong class="text-[var(--ink)]">Data Augmentation (ML аргаар өгөгдөл өргөжүүлэх):</strong>
-                  Аудио файлуудын дууг хурд/tempo, pitch, шуугиан нэмэх аргаар төрөл
-                  тус бүрт <strong>300+ дээжийг</strong> бий болгож, model generalization сайжруулсан.
-                </p>
-                <p>
-                  <strong class="text-[var(--ink)]">PyTorch &amp; Torchaudio ашигласан:</strong>
-                  PyTorch – deep learning model training, validation, hyperparameter tuning.
-                  Torchaudio – аудио файлыг tensor болгон хөрвүүлэх, spectrogram гаргах,
-                  GPU дээр хурдан боловсруулалт хийхэд ашигласан.
-                </p>
+              <div class="mt-4 grid sm:grid-cols-3 gap-3">
+                <div class="rounded-lg border border-neutral-200 p-3">
+                  <p class="font-mono text-[10.5px] uppercase tracking-wider text-[var(--accent)] mb-1.5">01 · Features</p>
+                  <p class="text-[13px] leading-snug text-neutral-700">
+                    <strong class="text-[var(--ink)] block mb-1">6 audio features</strong>
+                    Mel-spectrogram · MFCC · ZCR · Chroma · Spectral Contrast · Tonnetz
+                  </p>
+                </div>
+                <div class="rounded-lg border border-neutral-200 p-3">
+                  <p class="font-mono text-[10.5px] uppercase tracking-wider text-[var(--accent)] mb-1.5">02 · Augmentation</p>
+                  <p class="text-[13px] leading-snug text-neutral-700">
+                    <strong class="text-[var(--ink)] block mb-1">300+ samples / class</strong>
+                    Tempo · pitch shift · noise injection
+                    <span class="lang-mn"> → generalization сайжруулсан</span>
+                    <span class="lang-en"> → improved generalization</span>
+                  </p>
+                </div>
+                <div class="rounded-lg border border-neutral-200 p-3">
+                  <p class="font-mono text-[10.5px] uppercase tracking-wider text-[var(--accent)] mb-1.5">03 · Training</p>
+                  <p class="text-[13px] leading-snug text-neutral-700">
+                    <strong class="text-[var(--ink)] block mb-1">CNN · 5 classes</strong>
+                    PyTorch + Torchaudio · GPU-accelerated · hyperparameter tuning
+                  </p>
+                </div>
               </div>
+
+              <p class="mt-3 text-xs text-neutral-500 font-mono">
+                <span class="lang-mn">5 ангилал → belly pain · burping · discomfort · hungry · tired</span>
+                <span class="lang-en">5 classes → belly pain · burping · discomfort · hungry · tired</span>
+              </p>
               <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
                 During my university studies I experimented with several machine-learning
                 methods — traffic-light recognition, object detection from images, and
@@ -863,22 +933,22 @@
                 <span class="lang-mn">Бакалавр, Компьютерийн ухаан · GPA 3.1/4.0</span>
                 <span class="lang-en">B.Sc. Computer Science · GPA 3.1/4.0</span>
               </p>
-              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
-                Миний бие 2021-2025 оны хооронд МУИС-ийг компьютерын ухаан
-                мэргэжлээр <strong>3.1 голчтой</strong> амжилттай сурч төгссөн.
-                Сурч байх хугацаандаа Монголын үндэсний программчлалын
-                олимпиадад сайн дурын ажилтан хийж мэдлэгээ тэлэх, мөн
-                <strong>МоЭнко, Голомт банк, MCS</strong> гэх мэт дотоодын нөлөө
-                бүхий компаниудаас сургалтын тэтгэлэг авч байсан.
-              </p>
-              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
-                Graduated from the National University of Mongolia (2021–2025) with
-                a <strong>3.1 GPA</strong> in Computer Science. During my studies I
-                volunteered at the Mongolian National Programming Olympiad to broaden
-                my knowledge, and received <strong>student scholarships from MoEnko,
-                Golomt Bank, and MCS</strong> — among the most influential companies
-                in the country.
-              </p>
+              <ul class="mt-3 space-y-1.5 text-[14px] text-neutral-800 lang-mn">
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span><strong>3.1 / 4.0 голч</strong> · Компьютерын ухаан</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Сайн дурын ажилтан · <strong>Монголын үндэсний программчлалын олимпиад</strong></span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Сургалтын тэтгэлэг · <strong>МоЭнко · Голомт банк · MCS</strong></span></li>
+              </ul>
+              <ul class="mt-3 space-y-1.5 text-[14px] text-neutral-800 lang-en">
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span><strong>3.1 / 4.0 GPA</strong> · Computer Science</span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Volunteer · <strong>Mongolian National Programming Olympiad</strong></span></li>
+                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
+                  <span>Scholarships · <strong>MoEnko · Golomt Bank · MCS</strong></span></li>
+              </ul>
             </div>
           </div>
         </section>
@@ -984,10 +1054,30 @@
         ? 'Usukhbayar Batmunkh — Computer Scientist · CV'
         : 'Өсөхбаяр Батмөнх — Computer Scientist · CV';
     }
+
+    function setTheme(theme) {
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+      try { localStorage.setItem('cv-theme', theme); } catch (_) {}
+    }
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      setTheme(isDark ? 'light' : 'dark');
+    }
+
     (function () {
-      let saved = null;
-      try { saved = localStorage.getItem('cv-lang'); } catch (_) {}
-      if (saved === 'en' || saved === 'mn') setLang(saved);
+      // language
+      let savedLang = null;
+      try { savedLang = localStorage.getItem('cv-lang'); } catch (_) {}
+      if (savedLang === 'en' || savedLang === 'mn') setLang(savedLang);
+
+      // theme — saved → system preference → light
+      let savedTheme = null;
+      try { savedTheme = localStorage.getItem('cv-theme'); } catch (_) {}
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        setTheme(savedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setTheme('dark');
+      }
     })();
   </script>
 
