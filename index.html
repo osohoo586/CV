@@ -423,6 +423,12 @@
     details, details > *           { display: block !important; }
     details > summary              { display: none !important; }
     .project-details               { border-top: 0 !important; padding-top: 0 !important; margin-top: 6pt !important; }
+
+    /* In print, hide the left soft-skills sidebar, show the inline mobile version */
+    .soft-sidebar                  { display: none !important; }
+    .soft-mobile                   { display: block !important; }
+    /* Collapse the body grid back to single column for clean print flow */
+    .md\:grid                      { display: block !important; }
   }
 </style>
 </head>
@@ -434,7 +440,8 @@
       <div class="flex items-center gap-3">
         <div class="h-7 w-7 rounded-full bg-[var(--ink)] text-white grid place-items-center font-bold text-xs">ӨБ</div>
         <span class="font-mono text-xs text-neutral-500">
-          cv-three-eta-28.vercel.app
+          <span class="lang-mn">Өсөхбаяр Б. · CV</span>
+          <span class="lang-en">Usukhbayar B. · CV</span>
         </span>
       </div>
       <div class="flex items-center gap-2 flex-wrap">
@@ -458,7 +465,7 @@
     </div>
   </div>
 
-  <main class="max-w-4xl mx-auto px-6 py-12 md:py-16">
+  <main class="max-w-5xl mx-auto px-6 py-12 md:py-16">
 
     <article class="page bg-[var(--page)] border border-neutral-200/80 rounded-2xl overflow-hidden">
 
@@ -511,7 +518,10 @@
         <div class="mt-10 pt-6 border-t border-neutral-200 flex flex-wrap gap-x-6 gap-y-2 text-sm font-mono">
           <a href="mailto:osohoo586@gmail.com" class="meta-link">→ osohoo586@gmail.com</a>
           <a href="tel:+97680037577"            class="meta-link">→ +976 8003 7577</a>
-          <a href="https://cv-three-eta-28.vercel.app/" target="_blank" rel="noopener" class="meta-link">→ cv-three-eta-28.vercel.app</a>
+          <a href="https://cv-three-eta-28.vercel.app/" target="_blank" rel="noopener" class="meta-link">
+            <span class="lang-mn">→ CV-г вэбээр харах ↗</span>
+            <span class="lang-en">→ View CV online ↗</span>
+          </a>
           <span class="text-neutral-500">
             <span class="lang-mn">⚲ Улаанбаатар, Монгол</span>
             <span class="lang-en">⚲ Ulaanbaatar, Mongolia</span>
@@ -551,8 +561,113 @@
         </div>
       </header>
 
-      <!-- ───────── BODY ───────── -->
-      <div class="px-8 md:px-14 py-10 md:py-14 space-y-14">
+      <!-- ───────── BODY (sidebar + main grid on desktop) ───────── -->
+      <div class="md:grid md:grid-cols-[200px_1fr]">
+
+        <!-- LEFT SIDEBAR — Soft Skills (desktop screen only) -->
+        <aside class="soft-sidebar hidden md:block border-r border-neutral-200 px-6 py-12 self-start">
+          <p class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--accent)] font-semibold mb-3">
+            ╱ Soft Skills
+          </p>
+          <ul class="space-y-2.5 text-[13px]">
+            <li class="flex gap-2 items-baseline">
+              <span class="font-mono text-[10px] text-neutral-400">01</span>
+              <span>
+                <span class="lang-mn">Бие даан суралцагч</span>
+                <span class="lang-en">Self-learner</span>
+              </span>
+            </li>
+            <li class="flex gap-2 items-baseline">
+              <span class="font-mono text-[10px] text-neutral-400">02</span>
+              <span>
+                <span class="lang-mn">Асуудал шийдвэрлэгч</span>
+                <span class="lang-en">Problem-solver</span>
+              </span>
+            </li>
+            <li class="flex gap-2 items-baseline">
+              <span class="font-mono text-[10px] text-neutral-400">03</span>
+              <span>
+                <span class="lang-mn">Сониуч зан</span>
+                <span class="lang-en">Curiosity-driven</span>
+              </span>
+            </li>
+            <li class="flex gap-2 items-baseline">
+              <span class="font-mono text-[10px] text-neutral-400">04</span>
+              <span>
+                <span class="lang-mn">Дасан зохицдог</span>
+                <span class="lang-en">Adaptability</span>
+              </span>
+            </li>
+            <li class="flex gap-2 items-baseline">
+              <span class="font-mono text-[10px] text-neutral-400">05</span>
+              <span>
+                <span class="lang-mn">Тодорхой харилцаа</span>
+                <span class="lang-en">Clear communication</span>
+              </span>
+            </li>
+            <li class="flex gap-2 items-baseline">
+              <span class="font-mono text-[10px] text-neutral-400">06</span>
+              <span>
+                <span class="lang-mn">Нарийвчлал</span>
+                <span class="lang-en">Attention to detail</span>
+              </span>
+            </li>
+            <li class="flex gap-2 items-baseline">
+              <span class="font-mono text-[10px] text-neutral-400">07</span>
+              <span>
+                <span class="lang-mn">Цаг зохион байгуулалт</span>
+                <span class="lang-en">Time management</span>
+              </span>
+            </li>
+            <li class="flex gap-2 items-baseline">
+              <span class="font-mono text-[10px] text-neutral-400">08</span>
+              <span>
+                <span class="lang-mn">Багаар ажиллах</span>
+                <span class="lang-en">Team collaboration</span>
+              </span>
+            </li>
+          </ul>
+
+          <div class="mt-8 pt-5 border-t border-neutral-200">
+            <p class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--accent)] font-semibold mb-3">
+              ╱ Focus
+            </p>
+            <p class="text-[13px] leading-relaxed text-neutral-700">
+              <span class="lang-mn">
+                ML инженер чиглэлээр мэргэших — RAG, LLM, NLP pipeline дээр гүнзгий ажиллах.
+              </span>
+              <span class="lang-en">
+                Specializing as an ML engineer — going deep on RAG, LLM, and NLP pipelines.
+              </span>
+            </p>
+          </div>
+        </aside>
+
+        <!-- MAIN content -->
+        <div class="px-8 md:px-12 py-10 md:py-14 space-y-14">
+
+          <!-- Mobile / print only: soft skills as section -->
+          <section class="md:hidden soft-mobile section-block">
+            <div class="flex items-center gap-4 mb-4">
+              <span class="section-num">★</span>
+              <h2 class="section-title">
+                <span class="lang-mn">Soft Skills</span>
+                <span class="lang-en">Soft Skills</span>
+              </h2>
+              <span class="section-rule"></span>
+            </div>
+            <ul class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+              <li>● <span class="lang-mn">Бие даан суралцагч</span><span class="lang-en">Self-learner</span></li>
+              <li>● <span class="lang-mn">Асуудал шийдвэрлэгч</span><span class="lang-en">Problem-solver</span></li>
+              <li>● <span class="lang-mn">Сониуч</span><span class="lang-en">Curiosity-driven</span></li>
+              <li>● <span class="lang-mn">Дасан зохицдог</span><span class="lang-en">Adaptability</span></li>
+              <li>● <span class="lang-mn">Тодорхой харилцаа</span><span class="lang-en">Clear communication</span></li>
+              <li>● <span class="lang-mn">Нарийвчлал</span><span class="lang-en">Attention to detail</span></li>
+              <li>● <span class="lang-mn">Цаг зохион байгуулалт</span><span class="lang-en">Time management</span></li>
+              <li>● <span class="lang-mn">Багаар ажиллах</span><span class="lang-en">Team collaboration</span></li>
+            </ul>
+          </section>
+
 
         <!-- ===== 01 ABOUT ===== -->
         <section class="section-block">
@@ -1159,7 +1274,7 @@
             </div>
             <div class="stack-row">
               <div class="stack-cat">Hardware</div>
-              <div class="stack-tools">Apple M1 (MPS for ML) <span class="sep">·</span> Windows 11 dev box</div>
+              <div class="stack-tools">Windows 11 Pro <span class="sep">·</span> PowerShell / Git Bash</div>
               <span class="stack-freq daily">● daily</span>
             </div>
           </div>
@@ -1282,6 +1397,7 @@
           </ul>
         </section>
 
+        </div>
       </div>
 
       <!-- ───────── FOOTER ───────── -->
