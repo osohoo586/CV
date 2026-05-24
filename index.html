@@ -27,12 +27,12 @@
     --ink-2: #1c1c1c;
     --sub: #525252;
     --muted: #a3a3a3;
-    --line: #e5e5e5;
-    --line-2: #f5f5f5;
-    --paper: #fafaf9;
-    --page: #ffffff;
-    --accent: #d97706;       /* amber-600 */
-    --accent-soft: #fffbeb;  /* amber-50  */
+    --line: #e5e7eb;          /* neutral-200 with a slight cool tone */
+    --line-2: #f3f4f6;
+    --paper: #fafafa;         /* near-white body */
+    --page: #ffffff;          /* article surface */
+    --accent: #4f46e5;        /* indigo-600 — Stripe/Linear feel */
+    --accent-soft: #eef2ff;   /* indigo-50  */
     --ok: #16a34a;
   }
 
@@ -52,9 +52,10 @@
   /* === Grid background — screen only === */
   .bg-grid {
     background-image:
-      linear-gradient(to right, rgba(10,10,10,0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(10,10,10,0.04) 1px, transparent 1px);
+      linear-gradient(to right, rgba(79,70,229,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(79,70,229,0.05) 1px, transparent 1px);
     background-size: 32px 32px;
+    background-position: -1px -1px;
   }
 
   /* === Headline display tweaks === */
@@ -271,7 +272,7 @@
 <body>
 
   <!-- ───────── Sticky toolbar (screen only) ───────── -->
-  <div class="no-print sticky top-0 z-30 bg-paper/80 backdrop-blur border-b border-neutral-200">
+  <div class="no-print sticky top-0 z-30 bg-white/85 backdrop-blur border-b border-neutral-200">
     <div class="max-w-4xl mx-auto px-6 py-3 flex items-center justify-between gap-3 flex-wrap">
       <div class="flex items-center gap-3">
         <div class="h-7 w-7 rounded-full bg-[var(--ink)] text-white grid place-items-center font-bold text-xs">ӨБ</div>
@@ -501,22 +502,16 @@
                 <span class="lang-mn">Картын системийн хөгжүүлэгч · Улаанбаатар</span>
                 <span class="lang-en">Card Systems Developer · Ulaanbaatar</span>
               </p>
-              <ul class="mt-3 space-y-1.5 text-[14px] leading-relaxed text-neutral-800 lang-mn">
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span>Картын системийн хөгжүүлэлтийн хэлтэст ажиллаж, банкны IT орчны процесстой танилцсан.</span></li>
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span>Томоохон байгууллагын кодын хяналт, deploy урсгал, тестийн стандартыг бодит төсөл дээр хэрэглэсэн.</span></li>
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span>Багийн орчинд <strong>Git workflow</strong>, code review соёлд хурдан дасан зохицсон.</span></li>
-              </ul>
-              <ul class="mt-3 space-y-1.5 text-[14px] leading-relaxed text-neutral-800 lang-en">
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span>Developer on the card-systems team — hands-on exposure to real banking IT processes.</span></li>
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span>Applied enterprise code review, deploy pipelines, and testing standards to live projects.</span></li>
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span>Quickly adopted team-based <strong>Git workflows</strong> and code-review culture.</span></li>
-              </ul>
+              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
+                Миний бие М-Банк-д картын систем хөгжүүлэлтийн хэлтэст карт
+                хөгжүүлэгч хийж банкны ажлын орчин болон томоохон банкны IT
+                хэлтэс хэрхэн ажилладаг талаар суралцаж хувийн ур чадвараа нэмсэн.
+              </p>
+              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
+                Worked as a card-systems developer in M-Bank's card-systems department,
+                learning how the bank's IT operations and the IT department of a large
+                bank function, and growing my personal engineering skills.
+              </p>
             </div>
           </div>
 
@@ -532,18 +527,17 @@
                 <span class="lang-mn">Ажилтан · Улаанбаатар + USA (зун 2024)</span>
                 <span class="lang-en">Associate · Ulaanbaatar + USA (summer 2024)</span>
               </p>
-              <ul class="mt-3 space-y-1.5 text-[14px] leading-relaxed text-neutral-800 lang-mn">
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span>Гэр бүлийн бизнест дэмжлэг үзүүлж, борлуулалт, харилцагч талтай ажиллах туршлага хуримтлуулсан.</span></li>
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span>2024 оны зун АНУ-д <strong>3 сар</strong> ажиллаж, олон улсын орчинд англи хэлний дадлага, харилцааны ур чадвараа сайжруулсан.</span></li>
-              </ul>
-              <ul class="mt-3 space-y-1.5 text-[14px] leading-relaxed text-neutral-800 lang-en">
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span>Supported family business operations — built core sales and customer-communication skills.</span></li>
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span>Worked in the USA for <strong>3 months</strong> in summer 2024, strengthening English and cross-cultural professional skills.</span></li>
-              </ul>
+              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
+                Арван жилийн сурагч байхаасаа хойш гэр бүлийн бизнесд дэмжлэг
+                болох зорилгоор ажиллаж 2024 оны зун Америкийн нэгдсэн улсад
+                <strong>3 сарын</strong> хугацаанд ажиллаж ирсэн. Үүнээс хойш
+                аль болох мэргэжлийнхээ дагуу ажиллахыг илүүд үзэх болсон.
+              </p>
+              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
+                Worked from high school onward to support the family business, then
+                spent <strong>3 months</strong> in the United States in summer 2024.
+                After that experience, I committed to working in line with my profession.
+              </p>
             </div>
           </div>
         </section>
@@ -701,29 +695,6 @@
           </div>
 
           <div class="entry">
-            <div class="entry-meta">JUL 2025<br/>—&nbsp;PRESENT</div>
-            <div>
-              <h3 class="text-lg font-semibold tracking-tight">
-                <span class="lang-mn">Бие даасан ML судалгаа</span>
-                <span class="lang-en">Independent ML Research</span>
-              </h3>
-              <p class="text-sm text-neutral-500 mt-0.5">Combinatorics · Algorithms · Neural Networks</p>
-              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
-                Машин сургалтын онолын суурийг гүнзгийрүүлэх судалгаа —
-                <strong>Combinatorics</strong>, <strong>algorithm design</strong>,
-                <strong>neural network</strong> архитектурын чиглэлд. Онолын мэдлэгээ
-                бодит prototype загвар руу хувиргадаг.
-              </p>
-              <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
-                Independent research deepening the theoretical foundations of ML —
-                <strong>combinatorics</strong>, <strong>algorithm design</strong>, and
-                <strong>neural network</strong> architectures. Translating theory into
-                working prototype models.
-              </p>
-            </div>
-          </div>
-
-          <div class="entry">
             <div class="entry-meta">
               2024<br/>—&nbsp;2025
               <div class="mt-2 tag-ghost inline-block">thesis</div>
@@ -735,19 +706,58 @@
               </h3>
               <p class="text-sm text-neutral-500 mt-0.5">PyTorch · Torchaudio · CNN · Feature Engineering</p>
               <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
-                Хүүхдийн уйлалтыг шалтгаанаар нь <strong>5 ангилалд</strong>
-                (belly pain · burping · discomfort · hungry · tired) ялгах CNN загвар.
-                Mel-spectrogram, MFCC, ZCR, Chroma, Spectral Contrast, Tonnetz feature-уудыг
-                ашиглаж, tempo/pitch/noise data augmentation-аар ангилал тус бүрт 300+ дээж
-                үүсгэн generalization сайжруулсан. Torchaudio-ээр GPU-accelerated training.
+                Миний бие их сургуульд сурч байх хугацаандаа замын гэрлэн дохио
+                танилт, зурагнаас обьект илрүүлэх мөн хүүхдийн уйлах дуунаас
+                шалтгаан ангилах гэх мэт машин сургалтын аргуудыг туршиж байсан.
+                <strong>Үүнээс хамгийн чухал ажил нь хүүхдийн дуу ангилах ажил</strong>
+                байсан.
               </p>
+              <div class="mt-4 space-y-3 text-[14px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
+                <p>
+                  <strong class="text-[var(--ink)]">Deep Learning / CNN ашигласан:</strong>
+                  Дууны Mel-spectrogram, MFCC, ZCR, Chroma, Spectral Contrast, Tonnetz
+                  зэрэг шинж чанарыг feature extraction-ийн аргаар гаргаж, Convolutional
+                  Neural Network (CNN) загварт оруулж, хүүхдийн уйлалтын ангиллыг
+                  5 төрөлд (belly pain, burping, discomfort, hungry, tired) таньсан.
+                </p>
+                <p>
+                  <strong class="text-[var(--ink)]">Data Augmentation (ML аргаар өгөгдөл өргөжүүлэх):</strong>
+                  Аудио файлуудын дууг хурд/tempo, pitch, шуугиан нэмэх аргаар төрөл
+                  тус бүрт <strong>300+ дээжийг</strong> бий болгож, model generalization сайжруулсан.
+                </p>
+                <p>
+                  <strong class="text-[var(--ink)]">PyTorch &amp; Torchaudio ашигласан:</strong>
+                  PyTorch – deep learning model training, validation, hyperparameter tuning.
+                  Torchaudio – аудио файлыг tensor болгон хөрвүүлэх, spectrogram гаргах,
+                  GPU дээр хурдан боловсруулалт хийхэд ашигласан.
+                </p>
+              </div>
               <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
-                CNN that classifies infant cries into <strong>5 categories</strong>
-                (belly pain · burping · discomfort · hungry · tired). Uses Mel-spectrogram,
-                MFCC, ZCR, Chroma, Spectral Contrast, and Tonnetz features. Tempo/pitch/noise
-                augmentation produced 300+ samples per class, improving generalization.
-                GPU-accelerated training via Torchaudio.
+                During my university studies I experimented with several machine-learning
+                methods — traffic-light recognition, object detection from images, and
+                classifying infant cries by cause. <strong>The most significant of these
+                was the infant cry-classification project.</strong>
               </p>
+              <div class="mt-4 space-y-3 text-[14px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
+                <p>
+                  <strong class="text-[var(--ink)]">Deep Learning / CNN:</strong>
+                  Extracted Mel-spectrogram, MFCC, ZCR, Chroma, Spectral Contrast and
+                  Tonnetz features, fed them into a Convolutional Neural Network (CNN),
+                  and classified infant cries into 5 categories — belly pain, burping,
+                  discomfort, hungry, and tired.
+                </p>
+                <p>
+                  <strong class="text-[var(--ink)]">Data Augmentation:</strong>
+                  Used tempo/pitch shifting and noise injection to generate
+                  <strong>300+ samples per class</strong>, improving model generalization.
+                </p>
+                <p>
+                  <strong class="text-[var(--ink)]">PyTorch &amp; Torchaudio:</strong>
+                  PyTorch for deep-learning model training, validation, and hyperparameter
+                  tuning. Torchaudio for converting audio files into tensors, producing
+                  spectrograms, and running fast GPU-accelerated processing.
+                </p>
+              </div>
               <div class="mt-3 flex flex-wrap gap-1.5">
                 <span class="tag-ghost">Mel-spectrogram</span>
                 <span class="tag-ghost">MFCC</span>
@@ -757,27 +767,6 @@
             </div>
           </div>
 
-          <div class="entry">
-            <div class="entry-meta">2023<br/>—&nbsp;2024</div>
-            <div>
-              <h3 class="text-lg font-semibold tracking-tight">
-                <span class="lang-mn">Компьютер хараа · туршилт</span>
-                <span class="lang-en">Computer Vision · explorations</span>
-              </h3>
-              <ul class="mt-3 space-y-1.5 text-[14px] text-neutral-800 lang-mn">
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span><strong>Замын гэрлэн дохио танилт</strong> — image classification.</span></li>
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span><strong>Object detection</strong> — bounding-box pipeline.</span></li>
-              </ul>
-              <ul class="mt-3 space-y-1.5 text-[14px] text-neutral-800 lang-en">
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span><strong>Traffic-light recognition</strong> — image classification.</span></li>
-                <li class="flex gap-3"><span class="text-[var(--accent)] mt-1">▸</span>
-                  <span><strong>Object detection</strong> — bounding-box pipeline.</span></li>
-              </ul>
-            </div>
-          </div>
         </section>
 
         <!-- ===== 05 SKILLS ===== -->
@@ -875,13 +864,20 @@
                 <span class="lang-en">B.Sc. Computer Science · GPA 3.1/4.0</span>
               </p>
               <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-mn">
-                Монголын Үндэсний Программчлалын Олимпиадад сайн дурын ажилтнаар
-                ажиллаж, MoEnko, Голомт Банк, MCS зэрэг компаниудын
-                <strong>оюутны тэтгэлэгт</strong> хөтөлбөрт сонгогдсон.
+                Миний бие 2021-2025 оны хооронд МУИС-ийг компьютерын ухаан
+                мэргэжлээр <strong>3.1 голчтой</strong> амжилттай сурч төгссөн.
+                Сурч байх хугацаандаа Монголын үндэсний программчлалын
+                олимпиадад сайн дурын ажилтан хийж мэдлэгээ тэлэх, мөн
+                <strong>МоЭнко, Голомт банк, MCS</strong> гэх мэт дотоодын нөлөө
+                бүхий компаниудаас сургалтын тэтгэлэг авч байсан.
               </p>
               <p class="mt-3 text-[14.5px] leading-relaxed text-neutral-800 max-w-3xl lang-en">
-                Volunteered at the Mongolian National Programming Olympiad. Selected for
-                <strong>student scholarship programs</strong> from MoEnko, Golomt Bank, and MCS.
+                Graduated from the National University of Mongolia (2021–2025) with
+                a <strong>3.1 GPA</strong> in Computer Science. During my studies I
+                volunteered at the Mongolian National Programming Olympiad to broaden
+                my knowledge, and received <strong>student scholarships from MoEnko,
+                Golomt Bank, and MCS</strong> — among the most influential companies
+                in the country.
               </p>
             </div>
           </div>
