@@ -288,6 +288,78 @@
   .project-details .detail-body { font-size: 0.85rem; color: var(--sub); line-height: 1.65; }
   .project-details .detail-body strong { color: var(--ink); font-weight: 600; }
 
+  /* === Professional skills — vertical category list === */
+  .skill-cat {
+    border-left: 2px solid var(--accent);
+    padding-left: 0.85rem;
+  }
+  .skill-cat-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .skill-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .skill-list li {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 0.6rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+  .skill-key {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--sub);
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+    padding-top: 1px;
+  }
+  .skill-val { color: var(--ink); }
+
+  /* End-to-end capabilities block */
+  .cap-block {
+    margin-top: 2rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    background: var(--accent-soft);
+  }
+  html.dark .cap-block { background: var(--line-2); }
+  .cap-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .cap-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.4rem 1.5rem;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  @media (min-width: 768px) {
+    .cap-list { grid-template-columns: 1fr 1fr; }
+  }
+  .cap-list li { display: flex; gap: 0.6rem; align-items: baseline; }
+  .cap-list li::before { content: "▸"; color: var(--accent); flex-shrink: 0; }
+
   /* Daily Stack rows */
   .stack-row {
     display: grid;
@@ -1182,75 +1254,139 @@
 
         </section>
 
-        <!-- ===== 05 SKILLS ===== -->
+        <!-- ===== 05 МЭРГЭЖЛИЙН УР ЧАДВАР · PROFESSIONAL SKILLS ===== -->
         <section class="section-block">
           <div class="flex items-center gap-4 mb-6">
             <span class="section-num">05</span>
             <h2 class="section-title">
-              <span class="lang-mn">Ур чадвар</span>
-              <span class="lang-en">Skills</span>
+              <span class="lang-mn">Мэргэжлийн ур чадвар</span>
+              <span class="lang-en">Professional Skills</span>
             </h2>
             <span class="section-rule"></span>
           </div>
 
-          <div class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-x-6 gap-y-2 items-start">
-              <div class="font-mono text-xs uppercase tracking-wider text-neutral-500 pt-1">ML / AI</div>
-              <div class="flex flex-wrap gap-1.5">
-                <span class="tag">Python</span><span class="tag">PyTorch</span>
-                <span class="tag">Torchaudio</span><span class="tag">CNN</span>
-                <span class="tag">Deep Learning</span><span class="tag">NLP</span>
-                <span class="tag">Transformers (ByT5)</span><span class="tag">LangChain</span>
-                <span class="tag">RAG pipelines</span><span class="tag">OpenAI / LLM API</span>
-                <span class="tag">Vector embeddings</span>
-              </div>
+          <!-- 2-col category grid: each column is a vertical category list -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+
+            <!-- AI / ML — ML core competency -->
+            <div class="skill-cat">
+              <h3 class="skill-cat-title">AI / ML</h3>
+              <ul class="skill-list">
+                <li><span class="skill-key">Frameworks</span><span class="skill-val">PyTorch · Torchaudio · scikit-learn · HuggingFace</span></li>
+                <li><span class="skill-key">Architectures</span><span class="skill-val">CNN · RNN · Transformers (ByT5) · seq2seq</span></li>
+                <li><span class="skill-key">Techniques</span><span class="skill-val">Fine-tuning · Transfer learning · Data augmentation · Feature engineering</span></li>
+                <li><span class="skill-key">Time series</span><span class="skill-val">ARIMA · SARIMA · Forecasting</span></li>
+                <li><span class="skill-key">Audio / NLP</span><span class="skill-val">Mel-spectrogram · MFCC · Vowel harmony · Tokenization</span></li>
+                <li><span class="skill-key">Math</span><span class="skill-val">Algorithms · Combinatorics · Statistics · Linear algebra</span></li>
+              </ul>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-x-6 gap-y-2 items-start">
-              <div class="font-mono text-xs uppercase tracking-wider text-neutral-500 pt-1">Backend / Data</div>
-              <div class="flex flex-wrap gap-1.5">
-                <span class="tag">FastAPI</span><span class="tag">PostgreSQL</span>
-                <span class="tag">Qdrant</span><span class="tag">Apache Solr</span>
-                <span class="tag">SQLAlchemy</span><span class="tag">JWT auth</span>
-                <span class="tag">Docker</span><span class="tag">REST APIs</span>
-                <span class="tag">Selenium</span><span class="tag">C / C++</span>
-              </div>
+            <!-- AI TOOLS / LLM -->
+            <div class="skill-cat">
+              <h3 class="skill-cat-title">AI Tools · LLM</h3>
+              <ul class="skill-list">
+                <li><span class="skill-key">LLM API</span><span class="skill-val">OpenAI (GPT-4o-mini · text-embedding-3-large) · Anthropic Claude · Google Gemini</span></li>
+                <li><span class="skill-key">Frameworks</span><span class="skill-val">LangChain · LlamaIndex (basics)</span></li>
+                <li><span class="skill-key">RAG</span><span class="skill-val">Hybrid search · RRF fusion · Section chunking · Idempotent indexing</span></li>
+                <li><span class="skill-key">Vector DB</span><span class="skill-val">Qdrant · embeddings · ANN search</span></li>
+                <li><span class="skill-key">Search</span><span class="skill-val">Apache Solr · BM25 · keyword + semantic</span></li>
+                <li><span class="skill-key">AI IDE</span><span class="skill-val">Claude Code · Cursor · ChatGPT (assist)</span></li>
+              </ul>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-x-6 gap-y-2 items-start">
-              <div class="font-mono text-xs uppercase tracking-wider text-neutral-500 pt-1">Frontend / Tools</div>
-              <div class="flex flex-wrap gap-1.5">
-                <span class="tag">HTML / CSS</span><span class="tag">Tailwind CSS</span>
-                <span class="tag">Vue.js</span><span class="tag">Nuxt</span>
-                <span class="tag">Git</span><span class="tag">GitButler</span>
-                <span class="tag">Algorithms</span><span class="tag">Combinatorics</span>
-              </div>
+            <!-- BACKEND -->
+            <div class="skill-cat">
+              <h3 class="skill-cat-title">Backend</h3>
+              <ul class="skill-list">
+                <li><span class="skill-key">Languages</span><span class="skill-val">Python (primary) · C / C++ · SQL</span></li>
+                <li><span class="skill-key">Framework</span><span class="skill-val">FastAPI · REST APIs · Function calling</span></li>
+                <li><span class="skill-key">Database</span><span class="skill-val">PostgreSQL · SQLAlchemy ORM · Redis</span></li>
+                <li><span class="skill-key">Auth</span><span class="skill-val">JWT · Refresh token · Password reset · Token blacklist</span></li>
+                <li><span class="skill-key">Production</span><span class="skill-val">Rate limiting · Security headers (CSP/HSTS) · Health checks · Logging</span></li>
+              </ul>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-[140px_1fr] gap-x-6 gap-y-2 items-start">
-              <div class="font-mono text-xs uppercase tracking-wider text-neutral-500 pt-1">
+            <!-- DEVOPS -->
+            <div class="skill-cat">
+              <h3 class="skill-cat-title">DevOps</h3>
+              <ul class="skill-list">
+                <li><span class="skill-key">Containers</span><span class="skill-val">Docker · Docker Compose</span></li>
+                <li><span class="skill-key">CI / CD</span><span class="skill-val">GitHub Actions · Auto deploy · Pre-commit hooks</span></li>
+                <li><span class="skill-key">Deploy</span><span class="skill-val">Vercel · GitHub Pages · Linux VPS · Nginx (basics)</span></li>
+                <li><span class="skill-key">VCS</span><span class="skill-val">Git · GitButler · branch / rebase / cherry-pick</span></li>
+                <li><span class="skill-key">Automation</span><span class="skill-val">Selenium · Web scraping · ETL pipelines · Cron / batch</span></li>
+              </ul>
+            </div>
+
+            <!-- FRONTEND -->
+            <div class="skill-cat">
+              <h3 class="skill-cat-title">Frontend</h3>
+              <ul class="skill-list">
+                <li><span class="skill-key">Markup</span><span class="skill-val">HTML5 · CSS3 · Responsive design · Print CSS</span></li>
+                <li><span class="skill-key">Styling</span><span class="skill-val">Tailwind CSS · CSS variables · Dark mode</span></li>
+                <li><span class="skill-key">Frameworks</span><span class="skill-val">Vue.js · Nuxt · React (working)</span></li>
+                <li><span class="skill-key">JS / TS</span><span class="skill-val">JavaScript · TypeScript (basics) · Fetch / REST</span></li>
+                <li><span class="skill-key">Tooling</span><span class="skill-val">Vite · Tailwind CDN · npm</span></li>
+              </ul>
+            </div>
+
+            <!-- LANGUAGES / SPOKEN -->
+            <div class="skill-cat">
+              <h3 class="skill-cat-title">
                 <span class="lang-mn">Хэл</span>
-                <span class="lang-en">Languages</span>
-              </div>
-              <div class="flex flex-wrap gap-3 text-sm">
-                <span><strong>
-                  <span class="lang-mn">Монгол</span>
-                  <span class="lang-en">Mongolian</span>
-                </strong>
-                  <span class="text-neutral-500 font-mono text-xs">
-                    <span class="lang-mn">— эх хэл</span>
-                    <span class="lang-en">— native</span>
+                <span class="lang-en">Spoken Languages</span>
+              </h3>
+              <ul class="skill-list">
+                <li>
+                  <span class="skill-key">
+                    <span class="lang-mn">Монгол</span>
+                    <span class="lang-en">Mongolian</span>
                   </span>
-                </span>
-                <span class="text-neutral-300">·</span>
-                <span><strong>
-                  <span class="lang-mn">Англи</span>
-                  <span class="lang-en">English</span>
-                </strong>
-                  <span class="text-neutral-500 font-mono text-xs">— intermediate</span>
-                </span>
-              </div>
+                  <span class="skill-val">
+                    <span class="lang-mn">Эх хэл · бичиг / ярианы аль аль нь</span>
+                    <span class="lang-en">Native · written &amp; spoken</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="skill-key">
+                    <span class="lang-mn">Англи</span>
+                    <span class="lang-en">English</span>
+                  </span>
+                  <span class="skill-val">
+                    Intermediate · technical reading / writing · USA 3-month immersion
+                  </span>
+                </li>
+              </ul>
             </div>
+
+          </div>
+
+          <!-- End-to-end ML engineer capabilities -->
+          <div class="cap-block">
+            <div class="cap-title">
+              <span class="lang-mn">★ ML инженерийн төгсгөл-төгсгөл чадвар</span>
+              <span class="lang-en">★ End-to-end ML Engineer capabilities</span>
+            </div>
+            <ul class="cap-list lang-mn">
+              <li>Төрөл бүрийн эх сурвалжаас өгөгдөл татах, цэвэрлэх, хувиргах <em class="font-mono text-[10.5px] text-neutral-500">(ETL)</em></li>
+              <li>Feature engineering хийж өгөгдлийн чанарыг сайжруулах</li>
+              <li>ML алгоритм, гүн сургалт (DL) ашиглан модел боловсруулж, турших</li>
+              <li>NLP · time-series · recommendation бизнес шийдэл хөгжүүлэх</li>
+              <li>ML моделийг production-д <strong>CI/CD pipeline-аар</strong> deploy хийх</li>
+              <li>Моделийн гүйцэтгэлийг хянах, retrain ба сайжруулах</li>
+              <li>Data engineer / analyst-уудтай хамтран data pipeline зохиох</li>
+              <li>Бизнес нэгжид ML шийдлийг тайлбарлан таниулж нэвтрүүлэхэд дэмжлэг үзүүлэх</li>
+            </ul>
+            <ul class="cap-list lang-en">
+              <li>Pull, clean, and transform data from diverse sources <em class="font-mono text-[10.5px] text-neutral-500">(ETL)</em></li>
+              <li>Perform feature engineering to improve data quality</li>
+              <li>Build and evaluate models using ML algorithms and deep learning</li>
+              <li>Deliver ML solutions for NLP · time-series · recommendation use cases</li>
+              <li>Deploy ML models to production via <strong>CI/CD pipelines</strong></li>
+              <li>Monitor model performance and iterate (retraining, drift checks)</li>
+              <li>Collaborate with data engineers / analysts on data architecture</li>
+              <li>Communicate ML solutions to business stakeholders and drive adoption</li>
+            </ul>
           </div>
         </section>
 
