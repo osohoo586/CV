@@ -1272,10 +1272,10 @@
                 Mercor AI Text Detection — Kaggle Competition
               </h3>
               <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-mn">
-                Kaggle-ийн <strong>"Mercor AI Text Detection"</strong> уралдаанд оролцож <strong>AI-аар үүсгэсэн текстийг хүний бичсэн текстээс ялгах</strong> classifier хөгжүүлсэн. Transformer feature extraction + <strong>LightGBM</strong> ансамбль аргаар өндөр нарийвчлалтай үр дүн гарсан.
+                Kaggle-ийн <strong>"Mercor AI Text Detection"</strong> уралдаанд оролцож <strong>AI-аар үүсгэсэн текстийг хүний бичсэн текстээс ялгах</strong> classifier хөгжүүлсэн. Transformer-ийн feature extraction-ийг <strong>LightGBM</strong> classifier-тай <strong>ансамбль (ensemble)</strong> — олон загварын давуу талыг хослуулж, нэг загвараас илүү нарийвчлалтай таамаглал гаргах арга — аргаар нэгтгэн өндөр нарийвчлалтай текст ангилагч хөгжүүлсэн.
               </p>
               <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-en">
-                Competed in Kaggle's <strong>"Mercor AI Text Detection"</strong> challenge — built a classifier to distinguish <strong>AI-generated vs. human-written text</strong>. Used Transformer-based feature extraction combined with a <strong>LightGBM</strong> ensemble for high-accuracy predictions.
+                Competed in Kaggle's <strong>"Mercor AI Text Detection"</strong> challenge — built a classifier to distinguish <strong>AI-generated vs. human-written text</strong>. Applied Transformer feature extraction feeding into <strong>LightGBM</strong> via an <strong>ensemble</strong> approach — a technique that combines the outputs of multiple models to exceed single-model accuracy — achieving high-precision text classification.
               </p>
               <div class="mt-3 flex flex-wrap gap-1.5">
                 <span class="tag">LightGBM</span>
@@ -1295,8 +1295,8 @@
                 <span class="font-mono text-[11px] text-neutral-500 tracking-wider uppercase">CV R&amp;D · University</span>
               </div>
               <h3 class="text-lg font-semibold mt-2 tracking-tight">
-                <span class="lang-mn">Компьютерийн харааны туршилга — объект илрүүлэлт</span>
-                <span class="lang-en">Computer Vision — Traffic &amp; Object Detection</span>
+                <span class="lang-mn">Computer vision  — объект илрүүлэлт</span>
+                <span class="lang-en">Computer Vision Experiments — Object &amp; Traffic Detection</span>
               </h3>
               <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-mn">
                 МУИС-д суралцах хугацаандаа <strong>CNN, RNN, LSTM</strong> архитектур ашиглан <strong>замын гэрлэн дохио танилт</strong> болон <strong>зурагнаас объект илрүүлэх</strong> ажлуудыг туршсан. PyTorch дээр загвар бүтээж, бодит дүрс боловсруулалтын хэрэглээнд тест хийсэн.
@@ -1435,24 +1435,38 @@
               </p>
               <div class="mt-4 grid sm:grid-cols-3 gap-3">
                 <div class="rounded-lg border border-neutral-200 p-3">
-                  <p class="font-mono text-[10.5px] uppercase tracking-wider text-[var(--accent)] mb-1.5">01 · Комбинаторик</p>
+                  <p class="font-mono text-[10.5px] uppercase tracking-wider text-[var(--accent)] mb-1.5">
+                    <span class="lang-mn">01 · Комбинаторик</span>
+                    <span class="lang-en">01 · Combinatorics</span>
+                  </p>
                   <p class="text-[13px] leading-snug text-neutral-700">
-                    <strong class="text-[var(--ink)] block mb-1">График онол</strong>
-                    Дараалал тоолох · комбинаторын тооцоолол · алгоритмын оновчлол
+                    <strong class="text-[var(--ink)] block mb-1">
+                      <span class="lang-mn">Graph Theory</span>
+                      <span class="lang-en">Graph Theory</span>
+                    </strong>
+                    <span class="lang-mn">Оройнууд ба ирмэгийн бүтэц · дараалал тоолох · комбинаторын тооцоолол</span>
+                    <span class="lang-en">Vertices &amp; edge structures · counting sequences · combinatorial computation</span>
                   </p>
                 </div>
                 <div class="rounded-lg border border-neutral-200 p-3">
-                  <p class="font-mono text-[10.5px] uppercase tracking-wider text-[var(--accent)] mb-1.5">02 · Алгоритм</p>
+                  <p class="font-mono text-[10.5px] uppercase tracking-wider text-[var(--accent)] mb-1.5">
+                    <span class="lang-mn">02 · Алгоритм</span>
+                    <span class="lang-en">02 · Algorithms</span>
+                  </p>
                   <p class="text-[13px] leading-snug text-neutral-700">
                     <strong class="text-[var(--ink)] block mb-1">Graph · DP · Search</strong>
                     Dijkstra · BFS · DFS · A* · Dynamic Programming · Greedy
                   </p>
                 </div>
                 <div class="rounded-lg border border-neutral-200 p-3">
-                  <p class="font-mono text-[10.5px] uppercase tracking-wider text-[var(--accent)] mb-1.5">03 · NN Архитектур</p>
+                  <p class="font-mono text-[10.5px] uppercase tracking-wider text-[var(--accent)] mb-1.5">
+                    <span class="lang-mn">03 · NN Архитектур</span>
+                    <span class="lang-en">03 · NN Architecture</span>
+                  </p>
                   <p class="text-[13px] leading-snug text-neutral-700">
                     <strong class="text-[var(--ink)] block mb-1">CNN · RNN · Transformer</strong>
-                    Gradient descent · Overfitting · Regularization · Backprop
+                    <span class="lang-mn">Gradient descent · Overfitting · Regularization · Backprop</span>
+                    <span class="lang-en">Gradient descent · Overfitting · Regularization · Backprop</span>
                   </p>
                 </div>
               </div>
