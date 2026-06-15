@@ -627,7 +627,7 @@
             <em class="font-serif italic text-[var(--ink)]">RAG систем</em>,
             <em class="font-serif italic text-[var(--ink)]">Hybrid NLP</em> болон
             <em class="font-serif italic text-[var(--ink)]">Deep Learning</em>
-            загваруудын архитектур боловсруулалтаас эхлэн production орчинд нэвтрүүлэх хүртэлх бүх үе шатыг бие даан хариуцан хэрэгжүүлсэн.
+            загваруудын архитектур боловсруулалтаас эхлэн production орчинд нэвтрүүлэх хүртэл бие даан хариуцаж хэрэгжүүлсэн.
           </p>
           <p class="mt-4 text-lg md:text-xl leading-snug text-neutral-700 font-normal lang-en">
             Building <em class="font-serif italic text-[var(--ink)]">RAG systems</em>,
@@ -860,11 +860,11 @@
             <span class="section-rule"></span>
           </div>
           <p class="text-[15px] md:text-base leading-relaxed text-neutral-800 max-w-3xl lang-mn">
-            Миний бие МУИС-ийг компьютерын ухаан мэргэжлээр төгссөн.
+            Миний бие МУИС-ийг компьютерын ухаан мэргэжлээр төгсөж.
             <strong class="font-semibold text-[var(--ink)]">MID Success Factor</strong> компанид
             7 сарын хугацаанд <strong>4 production төсөл</strong> (RAG, hybrid NLP, cross-lingual retrieval, ETL) дээр ажилласан.
-            Зорилго — <em class="font-serif italic">AI / ML engineer</em> чиглэлээр
-            мэргэшиж орчин үеийн шинэ шийдлүүдийг цаг алдалгүй өөрийн мэдлэг туршлагад үндэслэн бодит төсөлд өөрийгөө дайчилж асуудал шийдвэрлэх.
+            <em class="font-serif italic">AI / ML engineer</em> чиглэлээр
+            мэргэшиж орчин үеийн шинэ шийдлүүдийг цаг алдалгүй өөрийн мэдлэг туршлагад үндэслэн бодит төсөлд өөрийн хувь нэмэр оруулах.
           </p>
           <p class="text-[15px] md:text-base leading-relaxed text-neutral-800 max-w-3xl lang-en">
             CS graduate from the National University of Mongolia.
@@ -1086,13 +1086,13 @@
               </h3>
               <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-mn">
                 Эмчилгээтэй холбоотой рашаан сувиллын газрын чатбот. <strong>Hybrid Search</strong>
-                (Qdrant vector + Solr keyword + RRF fusion), function calling-тэй
+                (vector db,  Solr db, RRF), function calling-тэй
                 intent classification, JWT + refresh-token authentication, rate-limiting
                 болон security headers-тэй production-д бэлэн систем.
               </p>
               <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-en">
                 A multi-domain wellness/spa chatbot. <strong>Hybrid search</strong>
-                (Qdrant vectors + Solr keywords + RRF fusion), function-calling
+                (vector db, Solr db, RRF), function-calling
                 intent classification, JWT + refresh tokens, rate-limiting and security
                 headers — production-ready end-to-end.
               </p>
@@ -1116,7 +1116,7 @@
                 <div class="detail-body lang-mn">
                   <p><strong>Архитектур:</strong> FastAPI backend · Vue.js admin dashboard · Docker compose.</p>
                   <p class="mt-2"><strong>Hybrid Search pipeline:</strong> Qdrant (semantic vector) + Apache Solr (keyword/BM25) бие даан хайлт хийгээд, дараа нь <strong>Reciprocal Rank Fusion (RRF)</strong> аргаар нэгтгэж top-K үр дүн гаргадаг.</p>
-                  <p class="mt-2"><strong>Function calling:</strong> 10+ tool (booking, service info, health consult, pricing) бүртгэлтэй. OpenAI GPT-4o-mini нь хэрэглэгчийн зорилгыг таниад, тохирох tool-г дуудна.</p>
+                  <p class="mt-2"><strong>Function calling:</strong> 10+ tool. Хэрэглэгчийн зорилгыг таниад, тохирох tool-г дуудна.</p>
                   <p class="mt-2"><strong>Auth:</strong> JWT + refresh token, password reset flow, token blacklist (PostgreSQL дээр), session management LRU кеш TTL-тэй.</p>
                   <p class="mt-2"><strong>Production-ready:</strong> 60 req/min/IP rate-limiting, CSP/HSTS/X-Frame security headers, health-check endpoint, startup validation, comprehensive logging.</p>
                 </div>
@@ -1145,14 +1145,14 @@
                 <strong>зөв кирилл</strong> рүү хөрвүүлдэг hybrid NLP pipeline.
                 4 шатлалт: Trie dict → bigram/trigram LM → byte-level
                 <strong>ByT5</strong> seq2seq → vowel-harmony checker.
-                3M synthetic pair-тэй corpus, Apple M1 (MPS) дээр локалаар инференц.
+                3M synthetic pair-тэй corpus, local Intel RTX 4070 GPU .
               </p>
               <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-en">
                 Hybrid NLP pipeline that converts informal Latin-script Mongolian
                 (Facebook, chat) into <strong>correct Cyrillic</strong>. Four-stage:
                 Trie dict → bigram/trigram LM → byte-level <strong>ByT5</strong>
                 seq2seq → vowel-harmony checker. Trained on 3M synthetic pairs,
-                runs locally on Apple M1 (MPS).
+                runs locally on Intel RTX 4070 GPU.
               </p>
               <div class="mt-3 flex flex-wrap gap-1.5">
                 <span class="tag">ByT5</span>
@@ -1182,7 +1182,7 @@
                   <p class="mt-2"><strong>Stage 2 — Bigram/Trigram LM:</strong> N-gram LM heuristically disambiguates words missed by the trie or with multiple valid mappings.</p>
                   <p class="mt-2"><strong>Stage 3 — ByT5 seq2seq:</strong> Out-of-vocab and complex cases are converted by a byte-level ByT5-small transformer — no tokenization artefacts.</p>
                   <p class="mt-2"><strong>Stage 4 — Vowel harmony:</strong> A deterministic rule layer checks and corrects vowel-harmony violations in agglutinative suffixes.</p>
-                  <p class="mt-2"><strong>Data:</strong> a <strong>3M synthetic parallel-pair corpus</strong> was generated. Training and inference run locally on Apple M1 (MPS) — no API dependency, no network latency.</p>
+                  <p class="mt-2"><strong>Data:</strong> a <strong>3M synthetic parallel-pair corpus</strong> was generated. Training and inference run locally on Intel RTX 4070 GPU — no API dependency, no network latency.</p>
                 </div>
               </details>
             </div>
@@ -1249,7 +1249,7 @@
               </h3>
               <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-mn">
                 Odoo knowledge base-ээс <strong>32+ модулиар</strong> автомат scrape хийж,
-                RST + JSON форматаар хадгалж, дараа нь монгол руу багцлан орчуулдаг pipeline.
+                RST + JSON форматаар хадгалж, дараа нь монгол руу орчуулдаг.
                 (Timesheet, POS, Accounting, Customs г.м.)
               </p>
               <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-en">
@@ -1275,13 +1275,13 @@
                   <p><strong>Auth + scraping:</strong> Selenium ашиглан Odoo dashboard-руу автомат login хийгээд, knowledge base модуль бүрийн article бүрийн агуулгыг гаргаж авдаг.</p>
                   <p class="mt-2"><strong>Хамрах хүрээ:</strong> Timesheet (Цаг бүртгэл), POS, Accounting (Санхүү — 26 article), Training (Дотоод сургалт), Customs (Гааль).</p>
                   <p class="mt-2"><strong>Output:</strong> .rst (documentation friendly) + .json (raw backup) — хоёр форматаар бичнэ.</p>
-                  <p class="mt-2"><strong>Translation:</strong> Англи болон автомат OCR-ийн гарсан текстийг OpenAI API ашиглан багцлан монгол руу орчуулдаг (rate-limit-friendly batching).</p>
+                  <p class="mt-2"><strong>Translation:</strong> Англи болон автомат OCR-ийн гарсан текстийг API ашиглан монгол руу орчуулдаг (rate-limit-friendly batching).</p>
                 </div>
                 <div class="detail-body lang-en">
                   <p><strong>Auth + scraping:</strong> Uses Selenium to auto-login to the Odoo dashboard, then walks every knowledge-base module and extracts the content of each article.</p>
                   <p class="mt-2"><strong>Coverage:</strong> Timesheet, POS, Accounting (26 articles), Training, Customs.</p>
                   <p class="mt-2"><strong>Output:</strong> .rst (docs-friendly) + .json (raw backup) — both written.</p>
-                  <p class="mt-2"><strong>Translation:</strong> English source text (and OCR-extracted text) is batch-translated into Mongolian via the OpenAI API with rate-limit-friendly batching.</p>
+                  <p class="mt-2"><strong>Translation:</strong> English source text (and OCR-extracted text) is batch-translated into Mongolian via the API with rate-limit-friendly batching.</p>
                 </div>
               </details>
             </div>
@@ -1369,7 +1369,7 @@
             <div>
               <div class="flex items-baseline gap-2 flex-wrap">
                 <h3 class="text-lg font-semibold tracking-tight">
-                  <span class="lang-mn">Хүүхдийн уйлалах дуунаас шалтгаан ангилах</span>
+                  <span class="lang-mn">Хүүхдийн уйлах дуунаас шалтгаан ангилах</span>
                   <span class="lang-en">Infant Cry Audio Classification</span>
                 </h3>
                 <span class="featured-badge">★ Featured · Дипломийн ажил</span>
