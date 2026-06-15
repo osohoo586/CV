@@ -287,6 +287,9 @@
   .project-details summary:hover { text-decoration: underline; }
   .project-details .detail-body { font-size: 0.85rem; color: var(--sub); line-height: 1.65; }
   .project-details .detail-body strong { color: var(--ink); font-weight: 600; }
+  .project-details summary .sum-open        { display: none; }
+  .project-details[open] summary .sum-closed { display: none; }
+  .project-details[open] summary .sum-open   { display: inline; }
 
   /* === Professional skills — vertical category list === */
   .skill-cat {
@@ -557,6 +560,20 @@
           <button type="button" id="btn-mn" class="active" onclick="setLang('mn')">МН</button>
           <button type="button" id="btn-en" onclick="setLang('en')">EN</button>
         </div>
+        <nav class="hidden sm:flex items-center gap-1 font-mono text-[11px]">
+          <a href="#experience" class="meta-link px-2 py-1 rounded hover:bg-[var(--accent-soft)] transition-colors">
+            <span class="lang-mn">Туршлага</span><span class="lang-en">Experience</span>
+          </a>
+          <a href="#projects" class="meta-link px-2 py-1 rounded hover:bg-[var(--accent-soft)] transition-colors">
+            <span class="lang-mn">Төслүүд</span><span class="lang-en">Projects</span>
+          </a>
+          <a href="#research" class="meta-link px-2 py-1 rounded hover:bg-[var(--accent-soft)] transition-colors">
+            <span class="lang-mn">Судалгаа</span><span class="lang-en">Research</span>
+          </a>
+          <a href="#skills" class="meta-link px-2 py-1 rounded hover:bg-[var(--accent-soft)] transition-colors">
+            <span class="lang-mn">Ур чадвар</span><span class="lang-en">Skills</span>
+          </a>
+        </nav>
         <a href="mailto:osohoo586@gmail.com" class="tool-btn">
           <span class="lang-mn">Холбоо ↗</span>
           <span class="lang-en">Contact ↗</span>
@@ -791,7 +808,7 @@
 
 
         <!-- ===== 01 EDUCATION ===== -->
-        <section class="section-block">
+        <section id="education" class="section-block">
           <div class="flex items-center gap-4 mb-6">
             <span class="section-num">01</span>
             <h2 class="section-title">
@@ -843,17 +860,17 @@
             <span class="section-rule"></span>
           </div>
           <p class="text-[15px] md:text-base leading-relaxed text-neutral-800 max-w-3xl lang-mn">
-            Миний бие МУИС-ийг компьютерын ухаан мэргэжлээр төгссөн ML / software engineer.
+            Миний бие МУИС-ийг компьютерын ухаан мэргэжлээр төгссөн.
             <strong class="font-semibold text-[var(--ink)]">MID Success Factor</strong> компанид
             7 сарын хугацаанд <strong>4 production төсөл</strong> (RAG, hybrid NLP, cross-lingual retrieval, ETL) дээр ажилласан.
-            Зорилго — <em class="font-serif italic">ML engineer</em> чиглэлээр
-            мэргэшиж бодит хэрэглээний асуудал шийдвэрлэх.
+            Зорилго — <em class="font-serif italic">AI / ML engineer</em> чиглэлээр
+            мэргэшиж орчин үеийн шинэ шийдлүүдийг цаг алдалгүй өөрийн мэдлэг туршлагад үндэслэн бодит төсөлд өөрийгөө дайчилж асуудал шийдвэрлэх.
           </p>
           <p class="text-[15px] md:text-base leading-relaxed text-neutral-800 max-w-3xl lang-en">
-            CS graduate from the National University of Mongolia and ML / software engineer.
+            CS graduate from the National University of Mongolia.
             Independently shipped <strong>4 production projects</strong> (RAG, hybrid NLP, cross-lingual retrieval, ETL)
             at <strong class="font-semibold text-[var(--ink)]">MID Success Factor</strong> over 7 months.
-            Aiming to specialize as an <em class="font-serif italic">ML engineer</em>
+            Aiming to specialize as an <em class="font-serif italic">AI / ML engineer</em>
             solving real-world problems.
           </p>
         </section>
@@ -904,7 +921,7 @@
                   <span class="lang-en">MCS Scholarship</span>
                 </p>
                 <p class="text-neutral-500 text-xs mt-0.5">
-                  <span class="lang-mn">IT чиглэлийн оюутнуудад</span>
+                  <span class="lang-mn">Хувийн болон мэргэжлийн ур чадвараар сонгогдсон </span>
                   <span class="lang-en">For IT-track students</span>
                 </p>
               </div>
@@ -926,7 +943,7 @@
         </section>
 
         <!-- ===== 04 EXPERIENCE ===== -->
-        <section class="section-block">
+        <section id="experience" class="section-block">
           <div class="flex items-center gap-4 mb-6">
             <span class="section-num">04</span>
             <h2 class="section-title">
@@ -973,14 +990,14 @@
                 <li class="flex gap-3">
                   <span class="text-[var(--accent)] mt-1">▸</span>
                   <span><span class="font-mono text-[var(--ink)] font-medium">odoo-docs-rag</span> —
-                    <span class="lang-mn">cross-lingual чатбот (англи доком → монгол хариулт).</span>
+                    <span class="lang-mn">cross-lingual чатбот (англи гарын авлага → монгол хариулт).</span>
                     <span class="lang-en">cross-lingual chatbot (English docs → Mongolian answers).</span></span>
                 </li>
                 <li class="flex gap-3">
                   <span class="text-[var(--accent)] mt-1">▸</span>
                   <span><span class="font-mono text-[var(--ink)] font-medium">odoo-kb-scraper</span> —
                     Selenium automation · 32+
-                    <span class="lang-mn">модуль scrape + батч орчуулга.</span>
+                    <span class="lang-mn">modules scrape + batch translation.</span>
                     <span class="lang-en">modules scraped + batch translation.</span></span>
                 </li>
               </ul>
@@ -1044,7 +1061,7 @@
         </section>
 
         <!-- ===== 05 PROJECTS ===== -->
-        <section class="section-block">
+        <section id="projects" class="section-block">
           <div class="flex items-center gap-4 mb-6">
             <span class="section-num">05</span>
             <h2 class="section-title">
@@ -1068,7 +1085,7 @@
                 <span class="lang-en">Multi-Domain RAG Chatbot</span>
               </h3>
               <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-mn">
-                Эмчилгээ/амралтын газрын олон-доменийн чатбот. <strong>Hybrid Search</strong>
+                Эмчилгээтэй холбоотой рашаан сувиллын газрын чатбот. <strong>Hybrid Search</strong>
                 (Qdrant vector + Solr keyword + RRF fusion), function calling-тэй
                 intent classification, JWT + refresh-token authentication, rate-limiting
                 болон security headers-тэй production-д бэлэн систем.
@@ -1091,8 +1108,10 @@
               </div>
               <details class="project-details">
                 <summary>
-                  <span class="lang-mn">Дэлгэрэнгүй</span>
-                  <span class="lang-en">More details</span>
+                  <span class="sum-closed lang-mn">Дэлгэрэнгүй харахын тулд энд дарна уу</span>
+                  <span class="sum-open   lang-mn">Хаах</span>
+                  <span class="sum-closed lang-en">Click to expand details</span>
+                  <span class="sum-open   lang-en">Collapse</span>
                 </summary>
                 <div class="detail-body lang-mn">
                   <p><strong>Архитектур:</strong> FastAPI backend · Vue.js admin dashboard · Docker compose.</p>
@@ -1146,15 +1165,17 @@
               </div>
               <details class="project-details">
                 <summary>
-                  <span class="lang-mn">Дэлгэрэнгүй</span>
-                  <span class="lang-en">More details</span>
+                  <span class="sum-closed lang-mn">Дэлгэрэнгүй харахын тулд энд дарна уу</span>
+                  <span class="sum-open   lang-mn">Хаах</span>
+                  <span class="sum-closed lang-en">Click to expand details</span>
+                  <span class="sum-open   lang-en">Collapse</span>
                 </summary>
                 <div class="detail-body lang-mn">
                   <p><strong>Шат 1 — Trie dict lookup:</strong> Хамгийн түгээмэл үгсийг O(k) хурдтай dictionary-ээр хайдаг (neural cost-гүй fast path).</p>
                   <p class="mt-2"><strong>Шат 2 — Bigram/Trigram LM:</strong> Trie-д олдоогүй эсвэл олон утгат үгсийг N-gram language model-аар heuristic disambiguation хийдэг.</p>
                   <p class="mt-2"><strong>Шат 3 — ByT5 seq2seq:</strong> OOV (out-of-vocab) болон complex case-уудыг byte-level ByT5-small transformer-аар хөрвүүлдэг. Tokenization-ийн алдаа байхгүй.</p>
-                  <p class="mt-2"><strong>Шат 4 — Vowel harmony:</strong> Монгол хэлний агглютинатив суффиксийн vowel harmony дүрмийг deterministic rule-аар шалгаж засдаг.</p>
-                  <p class="mt-2"><strong>Өгөгдөл:</strong> <strong>3M synthetic parallel pair</strong> бүхий corpus үүсгэсэн. Apple M1 (MPS) GPU дээр локалаар train + inference хийдэг тул API хамаарал, latency байхгүй.</p>
+                  <p class="mt-2"><strong>Шат 4 — Vowel Harmony Checker:</strong> Монгол хэлний agglutinative suffix-ийн vowel harmony дүрмийг deterministic finite-state rule set-ээр баталгаажуулж, зөрчил илэрвэл автоматаар засдаг.</p>
+                  <p class="mt-2"><strong>Өгөгдөл:</strong> <strong>3M synthetic parallel pair</strong> бүхий corpus үүсгэсэн. Intel RTX 4070 GPU дээр local train + inference хийсэн тул API хамаарал, latency байхгүй.</p>
                 </div>
                 <div class="detail-body lang-en">
                   <p><strong>Stage 1 — Trie dict lookup:</strong> O(k) lookup for the most common words (a no-neural-cost fast path).</p>
@@ -1196,13 +1217,15 @@
               </div>
               <details class="project-details">
                 <summary>
-                  <span class="lang-mn">Дэлгэрэнгүй</span>
-                  <span class="lang-en">More details</span>
+                  <span class="sum-closed lang-mn">Дэлгэрэнгүй харахын тулд энд дарна уу</span>
+                  <span class="sum-open   lang-mn">Хаах</span>
+                  <span class="sum-closed lang-en">Click to expand details</span>
+                  <span class="sum-open   lang-en">Collapse</span>
                 </summary>
                 <div class="detail-body lang-mn">
-                  <p><strong>Section-based chunking:</strong> Документыг тэмдэглэгээний section-аар нь смайсат байдлаар хуваадаг — Token boundary биш semantic boundary.</p>
+                  <p><strong>Section-based chunking:</strong> Документыг section байдлаар хуваадаг — Token boundary биш semantic boundary.</p>
                   <p class="mt-2"><strong>Idempotent indexing:</strong> Файлын checksum хадгалж, өөрчлөгдөөгүй документыг дахин embed хийдэггүй — restart-д хурдан, OpenAI quota хэмнэлттэй.</p>
-                  <p class="mt-2"><strong>Retrieval + Generation:</strong> Top-K semantic search (K=5) → асуудалд хамаатай context-ыг LLM (GPT-3.5/4o-mini) руу дамжуулна → монгол хариулт буцаана. Уг pipeline нь .txt / .md / .rst / .html форматыг дэмжинэ.</p>
+                  <p class="mt-2"><strong>Retrieval + Generation:</strong> Top-K semantic search (K=5) → асуудалд хамаатай context-ыг LLM руу дамжуулна → монгол хариулт буцаана. Уг pipeline нь .txt / .md / .rst / .html форматыг дэмжинэ.</p>
                   <p class="mt-2"><strong>History:</strong> Бүх асуулт хариултыг PostgreSQL дээр хадгалж, цаашид retrain эсвэл analytics-д ашиглах боломжтой.</p>
                 </div>
                 <div class="detail-body lang-en">
@@ -1243,8 +1266,10 @@
               </div>
               <details class="project-details">
                 <summary>
-                  <span class="lang-mn">Дэлгэрэнгүй</span>
-                  <span class="lang-en">More details</span>
+                  <span class="sum-closed lang-mn">Дэлгэрэнгүй харахын тулд энд дарна уу</span>
+                  <span class="sum-open   lang-mn">Хаах</span>
+                  <span class="sum-closed lang-en">Click to expand details</span>
+                  <span class="sum-open   lang-en">Collapse</span>
                 </summary>
                 <div class="detail-body lang-mn">
                   <p><strong>Auth + scraping:</strong> Selenium ашиглан Odoo dashboard-руу автомат login хийгээд, knowledge base модуль бүрийн article бүрийн агуулгыг гаргаж авдаг.</p>
@@ -1272,7 +1297,7 @@
                 Mercor AI Text Detection — Kaggle Competition
               </h3>
               <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-mn">
-                Kaggle-ийн <strong>"Mercor AI Text Detection"</strong> уралдаанд оролцож <strong>AI-аар үүсгэсэн текстийг хүний бичсэн текстээс ялгах</strong> classifier хөгжүүлсэн. Transformer-ийн feature extraction-ийг <strong>LightGBM</strong> classifier-тай <strong>ансамбль (ensemble)</strong> — олон загварын давуу талыг хослуулж, нэг загвараас илүү нарийвчлалтай таамаглал гаргах арга — аргаар нэгтгэн өндөр нарийвчлалтай текст ангилагч хөгжүүлсэн.
+                Kaggle-ийн <strong>"Mercor AI Text Detection"</strong> уралдаанд оролцож <strong>AI-аар үүсгэсэн текстийг хүний бичсэн текстээс ялгах</strong> classifier хөгжүүлсэн. Transformer-ийн feature extraction-ийг <strong>LightGBM</strong> classifier-тай <strong>ансамбль (ensemble)</strong> — олон загварын давуу талыг хослуулж, нэг загвараас илүү нарийвчлалтай таамаглал гаргах  арга ашигласан.
               </p>
               <p class="mt-2 text-[14.5px] leading-relaxed text-neutral-700 max-w-3xl lang-en">
                 Competed in Kaggle's <strong>"Mercor AI Text Detection"</strong> challenge — built a classifier to distinguish <strong>AI-generated vs. human-written text</strong>. Applied Transformer feature extraction feeding into <strong>LightGBM</strong> via an <strong>ensemble</strong> approach — a technique that combines the outputs of multiple models to exceed single-model accuracy — achieving high-precision text classification.
@@ -1284,6 +1309,14 @@
                 <span class="tag-ghost">text classification</span>
                 <span class="tag-ghost">AI detection</span>
                 <span class="tag-ghost">Kaggle</span>
+              </div>
+              <div class="mt-4 flex flex-wrap gap-3">
+                <a href="https://www.kaggle.com/competitions/mercor-ai-detection/overview"
+                   target="_blank" rel="noopener"
+                   class="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-wide text-[var(--accent)] border border-[var(--accent)] rounded px-3 py-1.5 hover:bg-[var(--accent-soft)] transition-colors">
+                  <span class="lang-mn">Kaggle уралдаан харах ↗</span>
+                  <span class="lang-en">View Kaggle competition ↗</span>
+                </a>
               </div>
             </div>
 
@@ -1318,7 +1351,7 @@
         </section>
 
         <!-- ===== 06 RESEARCH ===== -->
-        <section class="section-block">
+        <section id="research" class="section-block">
           <div class="flex items-center gap-4 mb-6">
             <span class="section-num">06</span>
             <h2 class="section-title">
@@ -1336,7 +1369,7 @@
             <div>
               <div class="flex items-baseline gap-2 flex-wrap">
                 <h3 class="text-lg font-semibold tracking-tight">
-                  <span class="lang-mn">Хүүхдийн уйлалтын аудио ангилал</span>
+                  <span class="lang-mn">Хүүхдийн уйлалах дуунаас шалтгаан ангилах</span>
                   <span class="lang-en">Infant Cry Audio Classification</span>
                 </h3>
                 <span class="featured-badge">★ Featured · Дипломийн ажил</span>
@@ -1411,6 +1444,14 @@
                 <span class="tag-ghost">data augmentation</span>
                 <span class="tag-ghost">5-class CNN</span>
               </div>
+              <div class="mt-4 flex flex-wrap gap-3">
+                <a href="https://drive.google.com/file/d/16cQus2xKZx3SW8swBkl5C9QfMdXCZ_52/view?usp=sharing"
+                   target="_blank" rel="noopener"
+                   class="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-wide text-[var(--accent)] border border-[var(--accent)] rounded px-3 py-1.5 hover:bg-[var(--accent-soft)] transition-colors print-show-url">
+                  <span class="lang-mn">Судалгааны ажил харах ↗</span>
+                  <span class="lang-en">View research paper ↗</span>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -1476,7 +1517,7 @@
         </section>
 
         <!-- ===== 07 МЭРГЭЖЛИЙН УР ЧАДВАР · PROFESSIONAL SKILLS ===== -->
-        <section class="section-block">
+        <section id="skills" class="section-block">
           <div class="flex items-center gap-4 mb-6">
             <span class="section-num">07</span>
             <h2 class="section-title">
