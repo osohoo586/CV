@@ -474,6 +474,8 @@
       font-size: 10.5pt;
     }
     .no-print { display: none !important; }
+    /* Show profile photo in print */
+    header img { display: block !important; width: 96px !important; height: 96px !important; }
     .bg-grid { background-image: none !important; }
     main { padding: 0 !important; max-width: 100% !important; }
     .page {
@@ -592,6 +594,11 @@
 
       <!-- ───────── HERO ───────── -->
       <header class="relative px-8 md:px-14 pt-12 md:pt-16 pb-10 md:pb-14 bg-grid">
+
+        <!-- profile photo — desktop only, absolute top-right -->
+        <img src="photo.jpeg"
+             alt="Өсөхбаяр Батмөнх"
+             class="hidden sm:block absolute right-8 md:right-14 top-10 md:top-14 w-28 h-28 md:w-32 md:h-32 rounded-2xl object-cover object-top border-2 border-[var(--line)] shadow-md">
 
         <!-- top meta -->
         <div class="flex items-center justify-between flex-wrap gap-3">
